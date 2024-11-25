@@ -17,6 +17,8 @@ var state: States = States.IDLE
 var fire_rate = 0.5
 var fire_timer = 0
 
+var auto_fire = true
+
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 
@@ -41,7 +43,7 @@ func _process(delta: float) -> void:
 		state = States.IDLE
 		#TODO: shooting
 
-	if Input.is_action_pressed("ui_accept"):
+	if Input.is_action_pressed("ui_accept") || auto_fire:
 		if fire_timer >= fire_rate:
 			print("instantiating arrow")
 			var arrow_direction = (get_global_mouse_position() - self.global_position).normalized()
@@ -50,21 +52,17 @@ func _process(delta: float) -> void:
 			arrow.launch(arrow_direction, 30)
 			add_child(arrow)
 
-	# position += velocity * delta
-	# TODO: why did i do this?
-	# position = position.clamp(Vector2.ZERO, screen_size)
-
 func _get_movement() -> Vector2:
 	var velocity = Vector2.ZERO
 	# TODO: gamepad movement
 
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("ui_right") || Input.is_action_pressed("move_right"):
 		velocity.x += 1
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed("ui_left") || Input.is_action_pressed("move_left"):
 		velocity.x -= 1
-	if Input.is_action_pressed("ui_down"):
+	if Input.is_action_pressed("ui_down") || Input.is_action_pressed("move_down"):
 		velocity.y += 1
-	if Input.is_action_pressed("ui_up"):
+	if Input.is_action_pressed("ui_up") || Input.is_action_pressed("move_up"):
 		velocity.y -= 1
 	return velocity
 
