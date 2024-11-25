@@ -55,6 +55,8 @@ func _process(delta: float) -> void:
 			arrow.launch(mouse_direction, 30)
 			add_child(arrow)
 
+	Events.player_position.emit(global_position)
+
 func _get_movement() -> Vector2:
 	var velocity = Vector2.ZERO
 	# TODO: gamepad movement

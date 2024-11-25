@@ -22,6 +22,9 @@ func start_velocity(vel: Vector2):
 func _on_body_entered(body):
 	print(body)
 
+func repath_to_player():
+	
+
 func die():
 	print("i died!")
 	queue_free()
