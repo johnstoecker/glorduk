@@ -44,6 +44,8 @@ func _process(delta: float) -> void:
 		#TODO: shooting
 
 	if Input.is_action_pressed("ui_accept") || auto_fire:
+		Events.emit_signal("update_health", 0.5)
+
 		if fire_timer >= fire_rate:
 			print("instantiating arrow")
 			var arrow_direction = (get_global_mouse_position() - self.global_position).normalized()

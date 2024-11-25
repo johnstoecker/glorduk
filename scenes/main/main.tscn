@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://d1m2bymovkheu"]
+[gd_scene load_steps=7 format=4 uid="uid://d1m2bymovkheu"]
 
 [ext_resource type="Texture2D" uid="uid://dji127oqstxjh" path="res://common/tiles/mapTiles/summer_tiles.png" id="1_h5rfr"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_y41ao"]
 [ext_resource type="PackedScene" uid="uid://bw3i4lt5wesgt" path="res://entities/player/player.tscn" id="3_yla30"]
+[ext_resource type="PackedScene" uid="uid://bon6ridosd7kh" path="res://ui/hud.tscn" id="4_6ccj4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a27e4"]
 texture = ExtResource("1_h5rfr")
@@ -406,3 +407,5 @@ tile_map_data = PackedByteArray("AAAAAAAAAQAAAAEAAAABAAAAAQAIAAEAAAACAAAAAQAIAAE
 tile_set = SubResource("TileSet_mxfkq")
 
 [node name="Player" parent="." instance=ExtResource("3_yla30")]
+
+[node name="HUD" parent="." instance=ExtResource("4_6ccj4")]

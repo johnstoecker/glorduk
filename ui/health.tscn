@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://bu6fkuaf8knf8"]
+
+[ext_resource type="Script" path="res://ui/health.gd" id="1_3aegk"]
+
+[node name="Health" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 1.0
+offset_right = 512.0
+offset_bottom = 65.0
+script = ExtResource("1_3aegk")
+
+[node name="Container" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 504.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.312466, 0.312466, 0.312466, 1)
+
+[node name="Foreground" type="ColorRect" parent="."]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 504.0
+offset_bottom = 56.0
+color = Color(2.03352e-06, 0.453848, 9.62615e-08, 1)
