@@ -209,17 +209,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_af83y"]
 size = Vector2(24, 24)
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_jaxha")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-collision_layer = 2
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_m5axi")
 animation = &"e_walk"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_af83y")
 
 [node name="Camera2D" type="Camera2D" parent="."]

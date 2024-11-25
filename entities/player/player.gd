@@ -1,6 +1,6 @@
-extends Node2D
+extends CharacterBody2D
 
-@onready var _animated_sprite = $CharacterBody2D/AnimatedSprite2D
+@onready var _animated_sprite = $AnimatedSprite2D
 # Called when the node enters the scene tree for the first time.
 
 var arrow_scene = preload("res://entities/arrow/arrow.tscn")
@@ -28,32 +28,31 @@ func start(pos):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	fire_timer += delta
-	# 1. get input from gamepad or input 
+	# 1. get input from gamepad or input
 
 	#TODO: diagonals....
-	var velocity = _get_movement()
-
+	velocity = _get_movement()
 	_set_animation(velocity)
-
 	if velocity.length() > 0:
 		state = States.RUNNING
 		velocity = velocity.normalized() * speed
+		move_and_slide()
 	else:
 		state = States.IDLE
 		#TODO: shooting
-		
+
 	if Input.is_action_pressed("ui_accept"):
 		if fire_timer >= fire_rate:
 			print("instantiating arrow")
 			var arrow_direction = (get_global_mouse_position() - self.global_position).normalized()
 			var arrow = arrow_scene.instantiate()
 			fire_timer = 0
-			arrow.launch(arrow_direction,30)
+			arrow.launch(arrow_direction, 30)
 			add_child(arrow)
 
-	position += velocity * delta
+	# position += velocity * delta
 	# TODO: why did i do this?
-	position = position.clamp(Vector2.ZERO, screen_size)
+	# position = position.clamp(Vector2.ZERO, screen_size)
 
 func _get_movement() -> Vector2:
 	var velocity = Vector2.ZERO
@@ -68,7 +67,7 @@ func _get_movement() -> Vector2:
 	if Input.is_action_pressed("ui_up"):
 		velocity.y -= 1
 	return velocity
-	
+
 func _set_animation(velocity: Vector2) -> void:
 	# TODO: also for shooting
 
@@ -80,7 +79,7 @@ func _set_animation(velocity: Vector2) -> void:
 		return
 
 	var angle = velocity.angle()
-	var snapper = snapped(angle, PI/4)/(PI/4)
+	var snapper = snapped(angle, PI / 4) / (PI / 4)
 	var step = wrapi(int(snapper), 0, 8)
 	if step == 0:
 		_animated_sprite.play("e_walk")
