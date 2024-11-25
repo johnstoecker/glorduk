@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://djgeo7onhlkeq"]
+
+[ext_resource type="Script" path="res://enemies/enemy.gd" id="1_nx7c4"]
+[ext_resource type="Texture2D" uid="uid://dbkhg3otbmefb" path="res://enemies/assets/sprites/skeleton.png" id="2_uabgv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vu8w"]
+atlas = ExtResource("2_uabgv")
+region = Rect2(122, 48, 61, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2e5s"]
+atlas = ExtResource("2_uabgv")
+region = Rect2(122, 144, 61, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_misda"]
+atlas = ExtResource("2_uabgv")
+region = Rect2(122, 240, 61, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjl1j"]
+atlas = ExtResource("2_uabgv")
+region = Rect2(122, 336, 61, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l5tre"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8vu8w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2e5s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_misda")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjl1j")
+}],
+"loop": true,
+"name": &"e_walk",
+"speed": 5.0
+}]
+
+[node name="enemy" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_nx7c4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_l5tre")
+animation = &"e_walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
