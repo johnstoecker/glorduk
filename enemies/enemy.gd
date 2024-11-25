@@ -23,7 +23,7 @@ func _on_body_entered(body):
 	print(body)
 
 func repath_to_player():
-	
+	pass
 
 func die():
 	print("i died!")

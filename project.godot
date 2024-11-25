@@ -34,6 +34,10 @@ project/assembly_name="Glor-duk The Game"
 
 enemies=""
 
+[gui]
+
+theme/custom_font="res://ui/friz-quadrata-regular-os-5870333951e7c.ttf"
+
 [input]
 
 move_left={
@@ -60,9 +64,6 @@ test_action={
 "deadzone": 0.5,
 "events": []
 }
-[gui]
-
-theme/custom_font="res://ui/friz-quadrata-regular-os-5870333951e7c.ttf"
 
 [layer_names]
 

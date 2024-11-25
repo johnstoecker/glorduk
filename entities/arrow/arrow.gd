@@ -1,15 +1,21 @@
 extends Area2D
+class_name Arrow
+
 # Area2D for simple bullet, if we need fancy physics stuff we should use a different node type
 
 
 @export var arrow_scene: PackedScene
 
-var speed = 10
+@onready var audio_fire: AudioStreamPlayer2D = $FireSFX;
+@onready var audio_hit: AudioStreamPlayer2D = $HitSFX;
+
+var speed = 10 # TODO
 
 var velocity: Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Events.emit_signal("arrow_fire")
 	connect("body_entered", _on_body_entered)
 	$VisibleOnScreenNotifier2D.connect("screen_exited", _on_screen_exit)
 
@@ -20,6 +26,7 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body):
 	if body.is_in_group("enemies"):
+		Events.emit_signal("arrow_hit")
 		# NOTE: anything in "enemies" group must now implement a die() method
 		body.die()
 		queue_free()
@@ -33,4 +40,3 @@ func launch(direction: Vector2, speed: float):
 	var rotate_dir = atan2(velocity.y, velocity.x)
 	print(rotate_dir)
 	rotate(rotate_dir)
-	
