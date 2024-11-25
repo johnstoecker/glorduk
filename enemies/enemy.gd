@@ -7,7 +7,7 @@ class_name Enemy
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_animated_sprite.play("e_walk")	
+	_animated_sprite.play("e_walk")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -21,3 +21,7 @@ func start_velocity(vel: Vector2):
 
 func _on_body_entered(body):
 	print(body)
+
+func die():
+	print("i died!")
+	queue_free()

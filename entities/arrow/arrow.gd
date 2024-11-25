@@ -19,11 +19,9 @@ func _process(delta: float) -> void:
 	self.translate(velocity * speed * delta)
 
 func _on_body_entered(body):
-	print("BODY ENTERED", body)
 	if body.is_in_group("enemies"):
-		print("hit enemy")
-		# TODO Signal
-		# area.explode()
+		# NOTE: anything in "enemies" group must now implement a die() method
+		body.die()
 		queue_free()
 
 func launch(direction: Vector2, speed: float):
