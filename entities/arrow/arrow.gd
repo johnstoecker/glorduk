@@ -6,13 +6,12 @@ extends Area2D
 
 var speed = 10
 
-signal hit_something
-
-var velocity:Vector2
+var velocity: Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	print("connect")
+	connect("body_entered", _on_body_entered)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -20,10 +19,12 @@ func _process(delta: float) -> void:
 	self.translate(velocity * speed * delta)
 
 func _on_body_entered(body):
-	print(body)
-	#if area.is_in_group("enemies"):
-		#area.explode()
-		#queue_free()
+	print("BODY ENTERED", body)
+	if body.is_in_group("enemies"):
+		print("hit enemy")
+		# TODO Signal
+		# area.explode()
+		queue_free()
 
 func launch(direction: Vector2, speed: float):
 	velocity = direction * speed

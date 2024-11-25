@@ -42,7 +42,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f0cp0"]
 size = Vector2(30, 30)
 
-[node name="enemy" type="RigidBody2D"]
+[node name="enemy" type="RigidBody2D" groups=["enemies"]]
 collision_layer = 4
 collision_mask = 3
 gravity_scale = 0.0
@@ -51,7 +51,7 @@ script = ExtResource("1_nx7c4")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_l5tre")
 animation = &"e_walk"
-frame_progress = 0.495802
+frame_progress = 0.427122
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_f0cp0")

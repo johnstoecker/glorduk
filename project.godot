@@ -25,6 +25,10 @@ window/stretch/scale_mode="integer"
 
 project/assembly_name="Glor-duk The Game"
 
+[global_group]
+
+enemies=""
+
 [layer_names]
 
 2d_physics/layer_1="World"
