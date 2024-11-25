@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bw3i4lt5wesgt"]
+[gd_scene load_steps=30 format=3 uid="uid://bw3i4lt5wesgt"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_jaxha"]
 [ext_resource type="Texture2D" uid="uid://cd4atf5koiml" path="res://entities/player/elven_archer.png" id="2_r47pk"]
@@ -206,11 +206,20 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_af83y"]
+size = Vector2(24, 24)
+
 [node name="Player" type="Node2D"]
 script = ExtResource("1_jaxha")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_layer = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 sprite_frames = SubResource("SpriteFrames_m5axi")
 animation = &"e_walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_af83y")
+
+[node name="Camera2D" type="Camera2D" parent="."]
