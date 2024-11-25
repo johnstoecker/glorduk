@@ -32,9 +32,10 @@ func _process(delta: float) -> void:
 	fire_timer += delta
 	# 1. get input from gamepad or input
 
-	#TODO: diagonals....
 	velocity = _get_movement()
-	_set_animation(velocity)
+	var mouse_direction = (get_global_mouse_position() - self.global_position).normalized()
+	_set_animation(velocity, mouse_direction)
+
 	if velocity.length() > 0:
 		state = States.RUNNING
 		velocity = velocity.normalized() * speed
@@ -45,13 +46,13 @@ func _process(delta: float) -> void:
 
 	if Input.is_action_pressed("ui_accept") || auto_fire:
 		Events.emit_signal("update_health", 0.5)
-
+		state = States.SHOOTING
 		if fire_timer >= fire_rate:
 			print("instantiating arrow")
-			var arrow_direction = (get_global_mouse_position() - self.global_position).normalized()
+			
 			var arrow = arrow_scene.instantiate()
 			fire_timer = 0
-			arrow.launch(arrow_direction, 30)
+			arrow.launch(mouse_direction, 30)
 			add_child(arrow)
 
 func _get_movement() -> Vector2:
@@ -68,19 +69,41 @@ func _get_movement() -> Vector2:
 		velocity.y -= 1
 	return velocity
 
-func _set_animation(velocity: Vector2) -> void:
+func _set_animation(velocity: Vector2, mouse_direction: Vector2) -> void:
 	# TODO: also for shooting
 
 	_animated_sprite.flip_h = false
 	_animated_sprite.flip_v = false
 
-	if velocity.x == 0 && velocity.y == 0:
-		_animated_sprite.stop()
-		return
-
-	var angle = velocity.angle()
+	var angle = mouse_direction.angle()
 	var snapper = snapped(angle, PI / 4) / (PI / 4)
 	var step = wrapi(int(snapper), 0, 8)
+
+	# animation for currently firing
+	if fire_timer <= 0.4:
+		if step == 0:
+			_animated_sprite.play("e_shoot")
+		elif step == 1:
+			_animated_sprite.play("se_shoot")
+		elif step == 2:
+			_animated_sprite.play("s_shoot")
+		elif step == 3:
+			_animated_sprite.play("se_shoot")
+			_animated_sprite.flip_h = true
+		elif step == 4:
+			_animated_sprite.play("e_shoot")
+			_animated_sprite.flip_h = true
+		elif step == 5:
+			_animated_sprite.play("ne_shoot")
+			_animated_sprite.flip_h = true
+		elif step == 6:
+			_animated_sprite.play("n_shoot")
+		elif step == 7:
+			_animated_sprite.play("ne_shoot")
+		return
+
+
+	# otherwise do walking animation
 	if step == 0:
 		_animated_sprite.play("e_walk")
 	elif step == 1:
@@ -100,6 +123,9 @@ func _set_animation(velocity: Vector2) -> void:
 		_animated_sprite.play("n_walk")
 	elif step == 7:
 		_animated_sprite.play("ne_walk")
+
+	if velocity.x == 0 && velocity.y == 0:
+		_animated_sprite.stop()
 
 func _on_body_entered(body):
 	print(body)
