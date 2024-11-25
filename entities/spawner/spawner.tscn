@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bupc5jhgqvb27"]
+
+[ext_resource type="Script" path="res://entities/spawner/spawner.gd" id="1_ncn0j"]
+[ext_resource type="Texture2D" uid="uid://c8c1bqu37ieok" path="res://entities/spawner/assets/orc_buildings.png" id="2_mykxa"]
+
+[node name="Spawner" type="Area2D"]
+script = ExtResource("1_ncn0j")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_mykxa")
