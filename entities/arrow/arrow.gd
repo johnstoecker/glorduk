@@ -4,7 +4,7 @@ extends Area2D
 
 @export var arrow_scene: PackedScene
 
-var speed = 750
+var speed = 10
 
 signal hit_something
 
@@ -17,7 +17,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(position)
+	self.translate(velocity * speed * delta)
 
 func _on_body_entered(body):
 	print(body)
@@ -27,3 +27,6 @@ func _on_body_entered(body):
 
 func launch(direction: Vector2, speed: float):
 	velocity = direction * speed
+	var rotate_dir = atan2(velocity.y, velocity.x)
+	print(rotate_dir)
+	rotate(rotate_dir)

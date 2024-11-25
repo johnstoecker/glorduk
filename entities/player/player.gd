@@ -14,7 +14,7 @@ signal playerHit
 enum States {IDLE, RUNNING, SHOOTING, DEAD}
 
 var state: States = States.IDLE
-var fire_rate = 1.5
+var fire_rate = 0.5
 var fire_timer = 0
 
 func _ready() -> void:
@@ -45,9 +45,10 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("ui_accept"):
 		if fire_timer >= fire_rate:
 			print("instantiating arrow")
+			var arrow_direction = (get_global_mouse_position() - self.global_position).normalized()
 			var arrow = arrow_scene.instantiate()
 			fire_timer = 0
-			arrow.launch(Vector2(0,150),30)
+			arrow.launch(arrow_direction,30)
 			add_child(arrow)
 
 	position += velocity * delta
