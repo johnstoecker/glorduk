@@ -19,19 +19,19 @@ grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Control"]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 250.0
-offset_right = 66.0
-offset_bottom = 313.0
+offset_left = 9.0
+offset_top = 518.0
+offset_right = 71.0
+offset_bottom = 581.0
 texture = SubResource("AtlasTexture_wp0ye")
 stretch_mode = 4
 
 [node name="Health" parent="Control" instance=ExtResource("1_bwqrm")]
 layout_mode = 2
-offset_left = 3.0
-offset_top = 314.0
-offset_right = 3.0
-offset_bottom = 314.0
+offset_left = 8.0
+offset_top = 582.0
+offset_right = 8.0
+offset_bottom = 582.0
 scale = Vector2(0.125, 0.125)
 
 [node name="Title" type="RichTextLabel" parent="Control"]
