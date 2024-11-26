@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://entities/arrow/arrow.gd" id="1_xydgl"]
 [ext_resource type="Texture2D" uid="uid://8ih1krkk0dsk" path="res://entities/arrow/arrow.png" id="2_7mmtg"]
-[ext_resource type="AudioStream" uid="uid://de0dmm3vjr3e3" path="res://assets/sounds/Misc/Bowfire.wav" id="3_da5pr"]
-[ext_resource type="AudioStream" uid="uid://bu6rnfuk5t4rf" path="res://assets/sounds/Misc/Bowhit.wav" id="4_omjaq"]
+[ext_resource type="AudioStream" uid="uid://bg5vk3a03lmnp" path="res://assets/sounds/Misc/Bowfire.wav" id="3_da5pr"]
+[ext_resource type="AudioStream" uid="uid://ce8ik218yqtxb" path="res://assets/sounds/Misc/Bowhit.wav" id="4_omjaq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0o745"]
 size = Vector2(30, 4)

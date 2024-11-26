@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 	self.translate(velocity * speed * delta)
 
 func _on_body_entered(body):
-	if body.is_in_group("enemies"):
+	if body.is_in_group(Globals.GROUP_ENEMIES):
 		Events.emit_signal("arrow_hit")
 		# NOTE: anything in "enemies" group must now implement a die() method
 		body.die()
@@ -38,5 +38,4 @@ func _on_screen_exit():
 func launch(direction: Vector2, speed: float):
 	velocity = direction * speed
 	var rotate_dir = atan2(velocity.y, velocity.x)
-	print(rotate_dir)
 	rotate(rotate_dir)

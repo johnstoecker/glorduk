@@ -48,8 +48,6 @@ func _process(delta: float) -> void:
 		Events.emit_signal("update_health", 0.5)
 		state = States.SHOOTING
 		if fire_timer >= fire_rate:
-			print("instantiating arrow")
-			
 			var arrow = arrow_scene.instantiate()
 			fire_timer = 0
 			arrow.launch(mouse_direction, 30)

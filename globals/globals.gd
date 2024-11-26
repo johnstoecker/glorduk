@@ -4,6 +4,9 @@ enum building_types {FARM, BARRACKS, TROLL_CABIN, TOWN_HALL, TOWN_HALL_2, TOWN_H
 
 enum enemy_types {SKELETON}
 
+var GROUP_PLAYER = "player"
+var GROUP_ENEMIES = "enemies"
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
