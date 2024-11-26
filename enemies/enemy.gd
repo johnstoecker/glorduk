@@ -9,6 +9,7 @@ var speed = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	connect("body_entered", _on_body_entered)
 	_animated_sprite.play("e_walk")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,7 +23,11 @@ func start_velocity(vel: Vector2):
 	linear_velocity = vel.normalized() * speed
 
 func _on_body_entered(body):
-	print(body)
+	print("enemy hit", body)
+	if body.is_in_group(Globals.GROUP_PLAYER):
+		Events.emit_signal("player_damaged", 1)
+	# TODO: attack, reset timer
+
 
 func repath_to_player():
 	var player_pos = get_tree().get_nodes_in_group("player")[0].global_position
