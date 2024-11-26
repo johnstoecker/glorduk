@@ -27,7 +27,8 @@ func _on_body_entered(body):
 func repath_to_player():
 	var player_pos = get_tree().get_nodes_in_group("player")[0].global_position
 	linear_velocity = (player_pos - position).normalized() * speed
-	#print(player_pos)
+	# TODO: A* path finding
+
 
 func die():
 	print("i died!")

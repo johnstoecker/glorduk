@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk3qskxe1v5rx"]
+
+[ext_resource type="Script" path="res://enemies/troll/troll.gd" id="1_3yhvh"]
+
+[node name="Troll" type="RigidBody2D"]
+script = ExtResource("1_3yhvh")
