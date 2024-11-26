@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://d1m2bymovkheu"]
+[gd_scene load_steps=11 format=4 uid="uid://d1m2bymovkheu"]
 
 [ext_resource type="Texture2D" uid="uid://dji127oqstxjh" path="res://common/tiles/mapTiles/summer_tiles.png" id="1_h5rfr"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_y41ao"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scenes/main/audio_manager.gd" id="5_ka175"]
 [ext_resource type="AudioStream" uid="uid://bg5vk3a03lmnp" path="res://assets/sounds/Misc/Bowfire.wav" id="5_ps4o7"]
 [ext_resource type="AudioStream" uid="uid://ce8ik218yqtxb" path="res://assets/sounds/Misc/Bowhit.wav" id="6_c3c4p"]
+[ext_resource type="AudioStream" uid="uid://dn3w54rocansy" path="res://assets/music/02 - Human Battle 01.mp3" id="8_4u0a6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a27e4"]
 texture = ExtResource("1_h5rfr")
@@ -418,6 +419,11 @@ script = ExtResource("5_ka175")
 
 [node name="FireSFX" type="AudioStreamPlayer2D" parent="AudioManager"]
 stream = ExtResource("5_ps4o7")
+volume_db = -41.522
 
 [node name="HitSFX" type="AudioStreamPlayer2D" parent="AudioManager"]
 stream = ExtResource("6_c3c4p")
+
+[node name="Music" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("8_4u0a6")
+autoplay = true
