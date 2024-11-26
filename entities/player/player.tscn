@@ -307,7 +307,7 @@ size = Vector2(24, 24)
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_jaxha")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["player"]]
 sprite_frames = SubResource("SpriteFrames_m5axi")
 animation = &"ne_shoot"
 

@@ -22,6 +22,8 @@ Events="*res://globals/events.gd"
 
 [display]
 
+window/size/viewport_width=1600
+window/size/viewport_height=1200
 window/stretch/mode="viewport"
 window/stretch/scale=2.0
 window/stretch/scale_mode="integer"
@@ -33,6 +35,10 @@ project/assembly_name="Glor-duk The Game"
 [global_group]
 
 enemies=""
+
+[gui]
+
+theme/custom_font="res://ui/friz-quadrata-regular-os-5870333951e7c.ttf"
 
 [input]
 
@@ -60,9 +66,6 @@ test_action={
 "deadzone": 0.5,
 "events": []
 }
-[gui]
-
-theme/custom_font="res://ui/friz-quadrata-regular-os-5870333951e7c.ttf"
 
 [layer_names]
 

@@ -1,10 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bupc5jhgqvb27"]
+[gd_scene load_steps=4 format=3 uid="uid://bupc5jhgqvb27"]
 
 [ext_resource type="Script" path="res://entities/spawner/spawner.gd" id="1_ncn0j"]
 [ext_resource type="Texture2D" uid="uid://c8c1bqu37ieok" path="res://entities/spawner/assets/orc_buildings.png" id="2_mykxa"]
 
-[node name="Spawner" type="Area2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ccut"]
+
+[node name="Spawner" type="StaticBody2D"]
 script = ExtResource("1_ncn0j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_mykxa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8ccut")

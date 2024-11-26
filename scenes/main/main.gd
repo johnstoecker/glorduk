@@ -23,6 +23,11 @@ func new_game() -> void:
 	var start_farm = spawner_scene.instantiate()
 	start_farm.place_building(Globals.building_types.FARM, Vector2(300,300))
 	add_child(start_farm)
+	
+	var start_barracks = spawner_scene.instantiate()
+	start_barracks.place_building(Globals.building_types.BARRACKS, Vector2(800,300))
+	add_child(start_barracks)
+
 
 func enemy_path_recalculate():
 	get_tree().call_group("enemies", "repath_to_player")
