@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
 func new_game() -> void:
 	$Player.start(Vector2(80, 80))
 	var start_farm = spawner_scene.instantiate()
-	start_farm.place_building(Globals.building_types.FARM, Vector2(300,300))
+	start_farm.place_building(Globals.building_types.FARM, Vector2(300, 300))
 	add_child(start_farm)
 	
 	var start_barracks = spawner_scene.instantiate()
