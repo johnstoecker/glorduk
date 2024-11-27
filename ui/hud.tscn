@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bon6ridosd7kh"]
+[gd_scene load_steps=4 format=3 uid="uid://d1wn2bjuhjub4"]
 
-[ext_resource type="PackedScene" uid="uid://bu6fkuaf8knf8" path="res://ui/health.tscn" id="1_bwqrm"]
+[ext_resource type="PackedScene" uid="uid://gwawuslf3jr8" path="res://ui/health.tscn" id="1_bwqrm"]
 [ext_resource type="Texture2D" uid="uid://50ya6aijpt4d" path="res://ui/icons.png" id="1_xrb1x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wp0ye"]

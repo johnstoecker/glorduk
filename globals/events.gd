@@ -7,3 +7,5 @@ signal update_health(ratio: float)
 
 signal arrow_fired
 signal arrow_hit
+
+signal put_eye

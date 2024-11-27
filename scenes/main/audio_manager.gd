@@ -10,8 +10,10 @@ func _ready() -> void:
 	Events.connect("arrow_hit", _on_arrow_hit)
 
 func _on_arrow_fired():
-	fire_sfx.pitch_scale = randf_range(0.95, 1.05)
-	fire_sfx.play()
+	# TODO: why is this not correct?
+	if !fire_sfx.playing:
+		fire_sfx.pitch_scale = randf_range(0.95, 1.05)
+		fire_sfx.play()
 
 func _on_arrow_hit():
 	hit_sfx.play()

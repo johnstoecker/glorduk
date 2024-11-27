@@ -10,6 +10,9 @@ var spawn_timer
 var spawn_threshold = 3
 
 var enabled = false
+var is_friendly = false
+
+var debug_spawn_count = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -26,21 +29,27 @@ func _process(delta: float) -> void:
 	
 
 func spawn_enemy():
+	if debug_spawn_count >= 1:
+		return
+	debug_spawn_count += 1
 	var enemy_type = Globals.enemy_types.SKELETON
 	if building_type == Globals.building_types.FARM:
 		enemy_type = Globals.enemy_types.SKELETON
+	elif building_type == Globals.building_types.BARRACKS:
+		enemy_type = Globals.enemy_types.TROLL
 	get_parent().spawn_enemy(enemy_type, position)
 
-func place_building(new_building_type: Globals.building_types, new_position: Vector2):
+func place_building(new_building_type: Globals.building_types, new_position: Vector2, friendly: bool):
+	is_friendly = friendly
 	building_type = new_building_type
 	position = new_position
 	if building_type == Globals.building_types.FARM:
-		$Sprite2D.region_rect = Rect2(338, 600, 68, 68)
-		$CollisionShape2D.shape.set_size(Vector2(68,68))
+		$Sprite2D.region_rect = Rect2(338, 600, 64, 64)
+		$CollisionShape2D.shape.set_size(Vector2(64,64))
 		spawn_threshold = 3
 	if building_type == Globals.building_types.BARRACKS:
-		$Sprite2D.region_rect = Rect2(108, 241, 100, 100)
-		$CollisionShape2D.shape.set_size(Vector2(100,100))
+		$Sprite2D.region_rect = Rect2(108, 241, 96, 96)
+		$CollisionShape2D.shape.set_size(Vector2(96,96))
 		spawn_threshold = 3
 
 	spawn_timer = 0

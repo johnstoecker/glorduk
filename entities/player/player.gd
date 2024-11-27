@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var _animated_sprite = $AnimatedSprite2D
 # Called when the node enters the scene tree for the first time.
 
-var arrow_scene = preload("res://entities/arrow/arrow.tscn")
+var arrow_scene = preload("res://entities/projectiles/arrow/arrow.tscn")
 
 @export var speed = 200
 
@@ -17,10 +17,13 @@ var state: States = States.IDLE
 var fire_rate = 0.5
 var fire_timer = 0
 
-var auto_fire = true
+var health = 1.0
+
+var auto_fire = false
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	Events.connect("player_damaged", _on_player_damaged)
 
 func start(pos):
 	position = pos
@@ -45,12 +48,11 @@ func _process(delta: float) -> void:
 		#TODO: shooting
 
 	if Input.is_action_pressed("ui_accept") || auto_fire:
-		Events.emit_signal("update_health", 0.5)
 		state = States.SHOOTING
 		if fire_timer >= fire_rate:
 			var arrow = arrow_scene.instantiate()
 			fire_timer = 0
-			arrow.launch(mouse_direction, 30)
+			arrow.launch(mouse_direction, 30, true)
 			add_child(arrow)
 
 	Events.player_position.emit(global_position)
@@ -128,5 +130,10 @@ func _set_animation(velocity: Vector2, mouse_direction: Vector2) -> void:
 		_animated_sprite.stop()
 
 func _on_body_entered(body):
-	print(body)
+	pass
 	# TODO: collisionshape2d.set_deferrred("disabled", true)
+	
+func _on_player_damaged(damage: float):
+	health -= damage
+	Events.emit_signal("update_health", health)
+	

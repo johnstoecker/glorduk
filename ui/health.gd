@@ -5,7 +5,6 @@ extends Control
 
 var amount: float = 1:
 	get:
-
 		return amount
 	set(value):
 		amount = clamp(value, 0, 1)
@@ -23,6 +22,7 @@ func _ready() -> void:
 	pass
 
 func _on_update_health(ratio: float):
+	print("updated health....")
 	amount = ratio
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

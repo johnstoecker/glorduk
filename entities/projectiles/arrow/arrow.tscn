@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://crnc5xy7eutio"]
 
-[ext_resource type="Script" path="res://entities/arrow/arrow.gd" id="1_xydgl"]
-[ext_resource type="Texture2D" uid="uid://8ih1krkk0dsk" path="res://entities/arrow/arrow.png" id="2_7mmtg"]
+[ext_resource type="Script" path="res://entities/projectiles/arrow/arrow.gd" id="1_xydgl"]
+[ext_resource type="Texture2D" uid="uid://8ih1krkk0dsk" path="res://entities/projectiles/arrow/arrow.png" id="2_7mmtg"]
 [ext_resource type="AudioStream" uid="uid://bg5vk3a03lmnp" path="res://assets/sounds/Misc/Bowfire.wav" id="3_da5pr"]
 [ext_resource type="AudioStream" uid="uid://ce8ik218yqtxb" path="res://assets/sounds/Misc/Bowhit.wav" id="4_omjaq"]
 
@@ -10,7 +10,7 @@ size = Vector2(30, 4)
 
 [node name="Arrow" type="Area2D"]
 collision_layer = 8
-collision_mask = 4
+collision_mask = 6
 script = ExtResource("1_xydgl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

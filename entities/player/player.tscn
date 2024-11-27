@@ -305,6 +305,7 @@ animations = [{
 size = Vector2(24, 24)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
 script = ExtResource("1_jaxha")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["player"]]

@@ -13,6 +13,8 @@ var speed = 10 # TODO
 
 var velocity: Vector2
 
+var is_friendly = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Events.emit_signal("arrow_fire")
@@ -25,17 +27,25 @@ func _process(delta: float) -> void:
 	self.translate(velocity * speed * delta)
 
 func _on_body_entered(body):
-	if body.is_in_group(Globals.GROUP_ENEMIES):
+	print(body)
+	print("arrow entered...something")
+	print(is_friendly)
+	print(body.get_groups)
+	if is_friendly && body.is_in_group(Globals.GROUP_ENEMIES):
 		Events.emit_signal("arrow_hit")
 		# NOTE: anything in "enemies" group must now implement a die() method
 		body.die()
+		queue_free()
+	elif !is_friendly && body.is_in_group(Globals.GROUP_PLAYER):
+		Events.emit_signal("player_damaged", 0.1)
 		queue_free()
 
 # TODO: on viewport exit
 func _on_screen_exit():
 	queue_free()
 
-func launch(direction: Vector2, speed: float):
-	velocity = direction * speed
+func launch(direction: Vector2, speed: float, friendly_arrow: bool):
+	velocity = direction.normalized() * speed
 	var rotate_dir = atan2(velocity.y, velocity.x)
 	rotate(rotate_dir)
+	is_friendly = friendly_arrow

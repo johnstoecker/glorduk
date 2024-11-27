@@ -36,6 +36,8 @@ project/assembly_name="Glor-duk The Game"
 
 enemies=""
 player=""
+paths=""
+eye=""
 
 [gui]
 

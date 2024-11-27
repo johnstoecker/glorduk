@@ -1,6 +1,58 @@
-[gd_scene load_steps=2 format=3 uid="uid://dk3qskxe1v5rx"]
+[gd_scene load_steps=9 format=3 uid="uid://dk3qskxe1v5rx"]
 
 [ext_resource type="Script" path="res://enemies/troll/troll.gd" id="1_3yhvh"]
+[ext_resource type="Texture2D" uid="uid://wm3iv4utko7w" path="res://enemies/troll/troll.png" id="2_8syg7"]
 
-[node name="Troll" type="RigidBody2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3syxw"]
+atlas = ExtResource("2_8syg7")
+region = Rect2(0, 56, 62, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rcor"]
+atlas = ExtResource("2_8syg7")
+region = Rect2(0, 112, 62, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whujc"]
+atlas = ExtResource("2_8syg7")
+region = Rect2(0, 168, 62, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ncsh"]
+atlas = ExtResource("2_8syg7")
+region = Rect2(0, 224, 62, 56)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sjpdq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3syxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rcor")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whujc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ncsh")
+}],
+"loop": true,
+"name": &"n_walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yjqsb"]
+size = Vector2(32, 37)
+
+[node name="Troll" type="RigidBody2D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 6
+gravity_scale = 0.0
+lock_rotation = true
 script = ExtResource("1_3yhvh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_sjpdq")
+animation = &"n_walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 5)
+shape = SubResource("RectangleShape2D_yjqsb")

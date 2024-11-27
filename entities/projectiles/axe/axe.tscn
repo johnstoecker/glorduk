@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://crnxjfs3ch8vk"]
+
+[ext_resource type="Script" path="res://entities/projectiles/axe/axe.gd" id="1_y6oyt"]
+
+[node name="Axe" type="Area2D"]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource("1_y6oyt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

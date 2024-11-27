@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://duyqk231h5n3g"]
+
+[ext_resource type="Texture2D" uid="uid://ctso368b8et8t" path="res://entities/projectiles/eye/eye.png" id="1_hhhw2"]
+
+[node name="Eye" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["eye"]]
+position = Vector2(1, 0)
+texture = ExtResource("1_hhhw2")
