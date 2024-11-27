@@ -12,8 +12,6 @@ var spawn_threshold = 3
 var enabled = false
 var is_friendly = false
 
-var debug_spawn_count = 0
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -29,9 +27,6 @@ func _process(delta: float) -> void:
 	
 
 func spawn_enemy():
-	if debug_spawn_count >= 1:
-		return
-	debug_spawn_count += 1
 	var enemy_type = Globals.enemy_types.SKELETON
 	if building_type == Globals.building_types.FARM:
 		enemy_type = Globals.enemy_types.SKELETON

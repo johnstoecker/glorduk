@@ -1,5 +1,10 @@
 extends RigidBody2D
 class_name Enemy
+# z-index 5
+# collision layer 3
+# mask 2 + 3
+# lock rotation: true
+# gravity scale = 0
 
 @onready var _animated_sprite = $AnimatedSprite2D
 
@@ -43,12 +48,13 @@ func _on_body_entered(body):
 	pass
 
 func repath_to_player():
+	if current_state == States.DEAD:
+		return
 	#for eye in get_tree().get_nodes_in_group("eye"):
 		#eye.queue_free()
 	var player_pos = get_tree().get_nodes_in_group("player")[0].global_position
 	var path = get_tree().get_first_node_in_group("paths").find_path(position, player_pos)
 	current_path = path
-	print(current_path)
 	var font = get_tree().get_nodes_in_group("")
 	# for debugging paths
 	#for x in range(current_path.size()):
@@ -72,5 +78,14 @@ func attack(target: Vector2):
 	Events.emit_signal("player_damaged", 0.1)
 
 func die():
+	_animated_sprite.play("die")
+	# interestingly, setting disabled true doesnt work, have to do deferred
+	$CollisionShape2D.set_deferred("disabled", true)
+	z_index = 4
+	linear_velocity = Vector2i(0,0)
+	set_process(false)
 	print("i died!")
+	current_state = States.DEAD
+	await get_tree().create_timer(8).timeout
 	queue_free()
+	

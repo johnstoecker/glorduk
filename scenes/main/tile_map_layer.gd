@@ -28,21 +28,10 @@ func set_rect_solid(start1: Vector2, tiles_across, tiles_down):
 		for y in range(start_pt.y, start_pt.y + tiles_down):
 			astar_grid.set_point_solid(Vector2(x,y), true)
 	astar_grid.update()
-	var line = ""
-	for x in Globals.num_tiles_across:
-		line = ""
-		for y in Globals.num_tiles_down:
-			if astar_grid.is_point_solid(Vector2i(y, x)):
-				line += "X"
-			else:
-				line += "*"
-		print(line)
 
 func find_path(start_pos: Vector2, end_pos: Vector2):
 	var start_cell = local_to_map(start_pos)
-	print(start_cell)
 	var end_cell = local_to_map(end_pos)
-	print(end_cell)
 	# the final bool, allow_partial_path, means we return closest path if no path is found
 	var path =  astar_grid.get_point_path(start_cell, end_cell, true)
 	for x in range(path.size()):

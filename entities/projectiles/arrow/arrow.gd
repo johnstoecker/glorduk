@@ -17,7 +17,6 @@ var is_friendly = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Events.emit_signal("arrow_fire")
 	connect("body_entered", _on_body_entered)
 	$VisibleOnScreenNotifier2D.connect("screen_exited", _on_screen_exit)
 
@@ -27,11 +26,7 @@ func _process(delta: float) -> void:
 	self.translate(velocity * speed * delta)
 
 func _on_body_entered(body):
-	print(body)
-	print("arrow entered...something")
-	print(is_friendly)
-	print(body.get_groups)
-	if is_friendly && body.is_in_group(Globals.GROUP_ENEMIES):
+	if is_friendly && body.is_in_group(Globals.GROUP_ENEMIES) && is_instance_valid(body):
 		Events.emit_signal("arrow_hit")
 		# NOTE: anything in "enemies" group must now implement a die() method
 		body.die()

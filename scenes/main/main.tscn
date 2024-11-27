@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://d1m2bymovkheu"]
+[gd_scene load_steps=12 format=4 uid="uid://d1m2bymovkheu"]
 
 [ext_resource type="Texture2D" uid="uid://dji127oqstxjh" path="res://common/tiles/mapTiles/summer_tiles.png" id="1_h5rfr"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_y41ao"]

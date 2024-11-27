@@ -15,7 +15,6 @@ var velocity: Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Events.emit_signal("arrow_fire")
 	connect("body_entered", _on_body_entered)
 	$VisibleOnScreenNotifier2D.connect("screen_exited", _on_screen_exit)
 
@@ -24,7 +23,6 @@ func _process(delta: float) -> void:
 	self.translate(velocity * speed * delta)
 
 func _on_body_entered(body):
-	print(body)
 	if body.is_in_group(Globals.GROUP_ENEMIES):
 		Events.emit_signal("arrow_hit")
 		# NOTE: anything in "enemies" group must now implement a die() method
