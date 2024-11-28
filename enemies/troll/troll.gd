@@ -12,8 +12,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	fire_timer += delta
 
-func attack(target: Vector2):
+func attack(node):
+	#_animated_sprite.play("e_attack")
+	#node.damage_health(0.1)
+#	Events.emit_signal("player_damaged", 0.1)
+
 	var arrow = arrow_scene.instantiate()
 	fire_timer = 0
-	arrow.launch(target, 30, false)
+	arrow.launch(node.global_position - position, 30, false)
 	add_child(arrow)

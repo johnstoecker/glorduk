@@ -22,7 +22,6 @@ func _ready() -> void:
 	pass
 
 func _on_update_health(ratio: float):
-	print("updated health....")
 	amount = ratio
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

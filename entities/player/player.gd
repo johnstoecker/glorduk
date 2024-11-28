@@ -133,6 +133,11 @@ func _on_body_entered(body):
 	pass
 	# TODO: collisionshape2d.set_deferrred("disabled", true)
 	
+	
+func damage_health(damage: float):
+	# why? eh,,, to update the UI
+	Events.emit_signal("player_damaged", 0.1)
+
 func _on_player_damaged(damage: float):
 	health -= damage
 	Events.emit_signal("update_health", health)

@@ -27,12 +27,17 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body):
 	if is_friendly && body.is_in_group(Globals.GROUP_ENEMIES) && is_instance_valid(body):
-		Events.emit_signal("arrow_hit")
-		# NOTE: anything in "enemies" group must now implement a die() method
-		body.die()
+		# NOTE: anything in "enemies" group must now implement damage_health() and die() method
+		body.damage_health(0.1)
+		# body.die()
 		queue_free()
 	elif !is_friendly && body.is_in_group(Globals.GROUP_PLAYER):
-		Events.emit_signal("player_damaged", 0.1)
+		body.damage_health(0.1)
+		# body.die()
+		queue_free()
+	elif !is_friendly && body.is_in_group(Globals.GROUP_FRIENDLIES):
+		body.damage_health(0.1)
+		# body.die()
 		queue_free()
 
 # TODO: on viewport exit
