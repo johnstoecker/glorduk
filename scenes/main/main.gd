@@ -8,6 +8,7 @@ var player_scene = preload("res://entities/player/player.tscn")
 
 
 @onready var camera: Camera2D = $PlayerManager/Camera2D
+@onready var hud: HUD = $HUD
 
 var enemy_path_calc_timer = 0
 var recalculate_enemy_paths_at = 0.5 # recalculate paths every x seconds
@@ -106,6 +107,11 @@ func spawn_player(player: int):
 	var tile = Vector2(randi_range(2, 3), randi_range(2, 3))
 	player_node.position = tile_to_pos(tile)
 
+	# update the HUD
+	hud.add_player(player)
+
+
 func delete_player(player: int):
 	player_nodes[player].queue_free()
 	player_nodes.erase(player)
+	hud.remove_player(player)

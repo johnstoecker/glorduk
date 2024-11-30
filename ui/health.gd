@@ -1,5 +1,5 @@
 extends Control
-
+class_name Health
 
 @onready var foreground: ColorRect = $Foreground
 @export var player_id = -1
