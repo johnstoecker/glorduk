@@ -16,6 +16,7 @@ enum States {IDLE, RUNNING, SHOOTING, DEAD}
 var state: States = States.IDLE
 var fire_rate = 0.5
 var fire_timer = 0
+var direction: Vector2 = Vector2.UP
 
 var health = 1.0
 
@@ -33,11 +34,24 @@ func start(pos):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	fire_timer += delta
-	# 1. get input from gamepad or input
+	# TODO: check if using gamepad
+	var using_gamepad = len(Input.get_connected_joypads()) > 0
+
 
 	velocity = _get_movement()
-	var mouse_direction = (get_global_mouse_position() - self.global_position).normalized()
-	_set_animation(velocity, mouse_direction)
+	if using_gamepad:
+		var device_id = 0 # TODO: handle >1 gamepad
+		var gamepad_direction = Vector2(Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_X), Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_Y)).normalized()
+		# If you aren't pressing the right joystick, we should maintain your previous orientation rather than setting Vector2.ZERO as the drection
+		if gamepad_direction != Vector2.ZERO:
+			direction = gamepad_direction
+	else:
+		var mouse_direction = (get_global_mouse_position() - self.global_position).normalized()
+		# This edge case seems very hard to trigger for mouse, but theoretically you could hover right on top of the character
+		if mouse_direction != Vector2.ZERO:
+			direction = mouse_direction
+
+	_set_animation(velocity, direction)
 
 	if velocity.length() > 0:
 		state = States.RUNNING
@@ -47,29 +61,29 @@ func _process(delta: float) -> void:
 		state = States.IDLE
 		#TODO: shooting
 
-	if Input.is_action_pressed("ui_accept") || auto_fire:
+	if Input.is_action_pressed("attack"):
 		state = States.SHOOTING
 		if fire_timer >= fire_rate:
 			var arrow = arrow_scene.instantiate()
 			fire_timer = 0
-			arrow.launch(mouse_direction, 30, true)
+			arrow.launch(direction, 30, true)
 			add_child(arrow)
 
 	Events.player_position.emit(global_position)
 
 func _get_movement() -> Vector2:
-	var velocity = Vector2.ZERO
-	# TODO: gamepad movement
+	var movement = Vector2.ZERO
 
-	if Input.is_action_pressed("ui_right") || Input.is_action_pressed("move_right"):
-		velocity.x += 1
-	if Input.is_action_pressed("ui_left") || Input.is_action_pressed("move_left"):
-		velocity.x -= 1
-	if Input.is_action_pressed("ui_down") || Input.is_action_pressed("move_down"):
-		velocity.y += 1
-	if Input.is_action_pressed("ui_up") || Input.is_action_pressed("move_up"):
-		velocity.y -= 1
-	return velocity
+	if Input.is_action_pressed("move_right"):
+		movement.x += 1
+	if Input.is_action_pressed("move_left"):
+		movement.x -= 1
+	if Input.is_action_pressed("move_down"):
+		movement.y += 1
+	if Input.is_action_pressed("move_up"):
+		movement.y -= 1
+
+	return movement.normalized()
 
 func _set_animation(velocity: Vector2, mouse_direction: Vector2) -> void:
 	# TODO: also for shooting
@@ -132,8 +146,7 @@ func _set_animation(velocity: Vector2, mouse_direction: Vector2) -> void:
 func _on_body_entered(body):
 	pass
 	# TODO: collisionshape2d.set_deferrred("disabled", true)
-	
+
 func _on_player_damaged(damage: float):
 	health -= damage
 	Events.emit_signal("update_health", health)
-	

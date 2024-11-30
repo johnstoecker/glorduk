@@ -315,5 +315,3 @@ animation = &"ne_shoot"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_af83y")
-
-[node name="Camera2D" type="Camera2D" parent="."]
