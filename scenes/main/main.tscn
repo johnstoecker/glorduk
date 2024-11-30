@@ -414,7 +414,7 @@ script = ExtResource("3_0eydi")
 [node name="Player" parent="." instance=ExtResource("3_yla30")]
 metadata/_edit_lock_ = true
 
-[node name="Camera2D2" type="Camera2D" parent="Player"]
+[node name="Camera2D" type="Camera2D" parent="Player"]
 
 [node name="HUD" parent="." instance=ExtResource("4_6ccj4")]
 

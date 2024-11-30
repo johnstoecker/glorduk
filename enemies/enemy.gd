@@ -26,7 +26,7 @@ func _ready() -> void:
 	_animated_sprite.play("e_walk")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# if we are close to the first node in path (10?)
 	# go to second node in path, shift first off
 	# otherwise no change in velocity
@@ -82,10 +82,9 @@ func die():
 	# interestingly, setting disabled true doesnt work, have to do deferred
 	$CollisionShape2D.set_deferred("disabled", true)
 	z_index = 4
-	linear_velocity = Vector2i(0,0)
+	linear_velocity = Vector2i(0, 0)
 	set_process(false)
-	print("i died!")
+	print("enemy died!")
 	current_state = States.DEAD
 	await get_tree().create_timer(8).timeout
 	queue_free()
-	

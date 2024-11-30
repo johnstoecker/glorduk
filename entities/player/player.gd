@@ -9,8 +9,6 @@ var arrow_scene = preload("res://entities/projectiles/arrow/arrow.tscn")
 
 var screen_size
 
-signal playerHit
-
 enum States {IDLE, RUNNING, SHOOTING, DEAD}
 
 var state: States = States.IDLE
@@ -29,14 +27,12 @@ func _ready() -> void:
 func start(pos):
 	position = pos
 	show()
-	# TODO: collisionshape2d.disabled = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	fire_timer += delta
-	# TODO: check if using gamepad
-	var using_gamepad = len(Input.get_connected_joypads()) > 0
 
+	var using_gamepad = len(Input.get_connected_joypads()) > 0
 
 	velocity = _get_movement()
 	if using_gamepad:
@@ -51,7 +47,7 @@ func _process(delta: float) -> void:
 		if mouse_direction != Vector2.ZERO:
 			direction = mouse_direction
 
-	_set_animation(velocity, direction)
+	_set_animation(direction)
 
 	if velocity.length() > 0:
 		state = States.RUNNING
@@ -59,8 +55,6 @@ func _process(delta: float) -> void:
 		move_and_slide()
 	else:
 		state = States.IDLE
-		#TODO: shooting
-
 	if Input.is_action_pressed("attack"):
 		state = States.SHOOTING
 		if fire_timer >= fire_rate:
@@ -85,9 +79,7 @@ func _get_movement() -> Vector2:
 
 	return movement.normalized()
 
-func _set_animation(velocity: Vector2, mouse_direction: Vector2) -> void:
-	# TODO: also for shooting
-
+func _set_animation(mouse_direction: Vector2) -> void:
 	_animated_sprite.flip_h = false
 	_animated_sprite.flip_v = false
 
@@ -140,12 +132,8 @@ func _set_animation(velocity: Vector2, mouse_direction: Vector2) -> void:
 	elif step == 7:
 		_animated_sprite.play("ne_walk")
 
-	if velocity.x == 0 && velocity.y == 0:
+	if velocity == Vector2.ZERO:
 		_animated_sprite.stop()
-
-func _on_body_entered(body):
-	pass
-	# TODO: collisionshape2d.set_deferrred("disabled", true)
 
 func _on_player_damaged(damage: float):
 	health -= damage
