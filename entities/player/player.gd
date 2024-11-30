@@ -6,6 +6,7 @@ extends CharacterBody2D
 var arrow_scene = preload("res://entities/projectiles/arrow/arrow.tscn")
 
 @export var speed = 200
+@export var player_id = 1
 
 var screen_size
 
@@ -32,9 +33,10 @@ func start(pos):
 func _process(delta: float) -> void:
 	fire_timer += delta
 
+	velocity = _get_movement()
+
 	var using_gamepad = len(Input.get_connected_joypads()) > 0
 
-	velocity = _get_movement()
 	if using_gamepad:
 		var device_id = 0 # TODO: handle >1 gamepad
 		var gamepad_direction = Vector2(Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_X), Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_Y)).normalized()

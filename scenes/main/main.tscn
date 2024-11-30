@@ -416,6 +416,9 @@ metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
+[node name="Player2" parent="." instance=ExtResource("3_yla30")]
+player_id = 2
+
 [node name="HUD" parent="." instance=ExtResource("4_6ccj4")]
 
 [node name="AudioManager" type="Node" parent="."]

@@ -28,8 +28,13 @@ func _on_put_eye(loc: Vector2):
 	new_eye.position = loc
 	add_sibling(new_eye)
 
+const TILE_SIZE = 32
+func tile_to_pos(tile: Vector2):
+	return Vector2(tile.x * TILE_SIZE, tile.y * TILE_SIZE)
+
 func new_game() -> void:
-	$Player.start(Vector2(80, 80))
+	$Player.start(tile_to_pos(Vector2(2, 2)))
+	$Player2.start(tile_to_pos(Vector2(3, 3)))
 	add_spawner(Globals.building_types.FARM, Vector2(300, 300), false)
 	add_spawner(Globals.building_types.BARRACKS, Vector2(800, 300), false)
 
