@@ -6,6 +6,8 @@ var spawner_scene = preload("res://entities/spawner/spawner.tscn")
 var eye_scene = preload("res://entities/projectiles/eye/eye.tscn")
 
 
+@onready var camera: Camera2D = $PlayerManager/Camera2D
+
 var enemy_path_calc_timer = 0
 var recalculate_enemy_paths_at = 0.5 # recalculate paths every x seconds
 
@@ -18,9 +20,23 @@ func _ready() -> void:
 	new_game()
 
 
+func camera_follow():
+	# center camera on the centroid of the players' positions
+	var players = get_tree().get_nodes_in_group(Globals.GROUP_PLAYER)
+	var camera_pos = tile_to_pos(Vector2(3, 3))
+	if len(players):
+		var total = Vector2.ZERO
+		for p in players:
+			total += p.position
+		total /= len(players)
+		camera_pos = total
+	camera.position = camera_pos
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	PlayerManager.handle_join_input()
+
+	camera_follow()
 
 	enemy_path_calc_timer += delta
 	if enemy_path_calc_timer >= recalculate_enemy_paths_at:
@@ -38,10 +54,8 @@ func tile_to_pos(tile: Vector2) -> Vector2:
 	return Vector2(tile.x * TILE_SIZE, tile.y * TILE_SIZE)
 
 func new_game() -> void:
-	# $Player.start(tile_to_pos(Vector2(2, 2)))
-	# $Player2.start(tile_to_pos(Vector2(3, 3)))
-	add_spawner(Globals.building_types.FARM, Vector2(300, 300), false)
-	add_spawner(Globals.building_types.BARRACKS, Vector2(800, 300), false)
+	add_spawner(Globals.building_types.FARM, tile_to_pos(Vector2(9, 9)), false)
+	add_spawner(Globals.building_types.BARRACKS, tile_to_pos(Vector2(25, 9)), false)
 
 func add_spawner(building_type: Globals.building_types, position: Vector2, is_friendly: bool):
 	var new_building = spawner_scene.instantiate()

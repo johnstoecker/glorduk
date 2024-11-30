@@ -309,7 +309,8 @@ z_index = 5
 collision_layer = 2
 script = ExtResource("1_jaxha")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["player"]]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.00245, 0.99556)
 sprite_frames = SubResource("SpriteFrames_m5axi")
 animation = &"ne_shoot"
 

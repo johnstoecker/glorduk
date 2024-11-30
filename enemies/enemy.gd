@@ -52,7 +52,7 @@ func repath_to_player():
 		return
 	#for eye in get_tree().get_nodes_in_group("eye"):
 		#eye.queue_free()
-	var players = get_tree().get_nodes_in_group("player")
+	var players = get_tree().get_nodes_in_group(Globals.GROUP_PLAYER)
 	if !len(players):
 		return
 
