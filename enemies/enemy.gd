@@ -55,8 +55,9 @@ func repath_to_player():
 	var players = get_tree().get_nodes_in_group(Globals.GROUP_PLAYER)
 	if !len(players):
 		return
+	var player: Player = players[0]
 
-	var player_pos = players[0].global_position
+	var player_pos = player.global_position
 	var path = get_tree().get_first_node_in_group("paths").find_path(position, player_pos)
 	current_path = path
 	# var font = get_tree().get_nodes_in_group("")
@@ -69,6 +70,7 @@ func repath_to_player():
 		linear_velocity = Vector2(0, 0)
 		var target = player_pos - position
 		attack(target)
+		player.take_damage(0.15)
 	else:
 		_animated_sprite.play("e_walk")
 		current_state = States.RUNNING
@@ -79,7 +81,6 @@ func repath_to_player():
 
 func attack(target: Vector2):
 	_animated_sprite.play("e_attack")
-	Events.emit_signal("player_damaged", 0.1)
 
 func die():
 	_animated_sprite.play("die")

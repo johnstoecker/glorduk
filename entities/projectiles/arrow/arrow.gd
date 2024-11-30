@@ -9,7 +9,7 @@ class_name Arrow
 @onready var audio_fire: AudioStreamPlayer2D = $FireSFX;
 @onready var audio_hit: AudioStreamPlayer2D = $HitSFX;
 
-var speed = 10 # TODO
+var speed = 10 # TODO: simplify speed vs velocity, here and axe.gd
 
 var velocity: Vector2
 
@@ -27,12 +27,15 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body):
 	if is_friendly && body.is_in_group(Globals.GROUP_ENEMIES) && is_instance_valid(body):
+		assert(body is Enemy)
+		var enemy: Enemy = body
+		enemy.die()
 		Events.emit_signal("arrow_hit")
-		# NOTE: anything in "enemies" group must now implement a die() method
-		body.die()
 		queue_free()
 	elif !is_friendly && body.is_in_group(Globals.GROUP_PLAYER):
-		Events.emit_signal("player_damaged", 0.1)
+		assert(body is Player)
+		var player: Player = body
+		player.take_damage(0.1)
 		queue_free()
 
 # TODO: on viewport exit

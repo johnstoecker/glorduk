@@ -29,9 +29,10 @@ offset_top = 480.0
 offset_right = 63.0
 offset_bottom = 506.0
 theme_override_font_sizes/normal_font_size = 0
-text = "Player 1"
+text = "Player 0"
 
 [node name="InputDevice" type="RichTextLabel" parent="Players/Player1"]
+visible = false
 layout_mode = 2
 offset_top = 500.0
 offset_right = 63.0
@@ -53,6 +54,7 @@ offset_top = 582.0
 offset_right = 0.0
 offset_bottom = 582.0
 scale = Vector2(0.125, 0.125)
+player_id = 0
 
 [node name="Player2" type="Control" parent="Players"]
 anchors_preset = 0
@@ -66,9 +68,10 @@ offset_top = 479.0
 offset_right = 68.0
 offset_bottom = 505.0
 theme_override_font_sizes/normal_font_size = 0
-text = "Player 2"
+text = "Player 1"
 
 [node name="InputDevice" type="RichTextLabel" parent="Players/Player2"]
+visible = false
 layout_mode = 2
 offset_top = 500.0
 offset_right = 63.0
@@ -91,6 +94,47 @@ offset_top = 582.0
 offset_right = 0.0
 offset_bottom = 582.0
 scale = Vector2(0.125, 0.125)
+player_id = 1
+
+[node name="Player3" type="Control" parent="Players"]
+anchors_preset = 0
+offset_left = 192.0
+offset_right = 232.0
+offset_bottom = 40.0
+
+[node name="Name" type="RichTextLabel" parent="Players/Player3"]
+layout_mode = 2
+offset_top = 479.0
+offset_right = 68.0
+offset_bottom = 505.0
+theme_override_font_sizes/normal_font_size = 0
+text = "Player 2"
+
+[node name="InputDevice" type="RichTextLabel" parent="Players/Player3"]
+visible = false
+layout_mode = 2
+offset_top = 500.0
+offset_right = 63.0
+offset_bottom = 526.0
+theme_override_font_sizes/normal_font_size = 12
+text = "Gamepad"
+
+[node name="TextureRect" type="TextureRect" parent="Players/Player3"]
+modulate = Color(0.921569, 0.396078, 1, 1)
+layout_mode = 0
+offset_top = 518.0
+offset_right = 62.0
+offset_bottom = 581.0
+texture = SubResource("AtlasTexture_wp0ye")
+stretch_mode = 4
+
+[node name="Health" parent="Players/Player3" instance=ExtResource("1_bwqrm")]
+layout_mode = 2
+offset_top = 582.0
+offset_right = 0.0
+offset_bottom = 582.0
+scale = Vector2(0.125, 0.125)
+player_id = 2
 
 [node name="Control2" type="Control" parent="."]
 layout_mode = 3

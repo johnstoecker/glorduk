@@ -306,6 +306,7 @@ size = Vector2(24, 24)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 5
+scale = Vector2(0.98381, 1)
 collision_layer = 2
 script = ExtResource("1_jaxha")
 
@@ -316,3 +317,9 @@ animation = &"ne_shoot"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_af83y")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 15.0
+scale = Vector2(1.00082, 1)
+text = "1"

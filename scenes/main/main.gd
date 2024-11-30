@@ -4,6 +4,7 @@ var enemy_scene = preload("res://enemies/enemy.tscn")
 var troll_scene = preload("res://enemies/troll/troll.tscn")
 var spawner_scene = preload("res://entities/spawner/spawner.tscn")
 var eye_scene = preload("res://entities/projectiles/eye/eye.tscn")
+var player_scene = preload("res://entities/player/player.tscn")
 
 
 @onready var camera: Camera2D = $PlayerManager/Camera2D
@@ -91,7 +92,6 @@ var player_nodes = {}
 
 func spawn_player(player: int):
 	# create the player node
-	var player_scene = load("res://entities/player/player.tscn")
 	var player_node: Player = player_scene.instantiate()
 	player_nodes[player] = player_node
 

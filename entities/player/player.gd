@@ -2,12 +2,13 @@ extends CharacterBody2D
 class_name Player
 
 @onready var _animated_sprite = $AnimatedSprite2D
+@onready var _label: Label = $Label
+
 # Called when the node enters the scene tree for the first time.
 
 var arrow_scene = preload("res://entities/projectiles/arrow/arrow.tscn")
 
 @export var speed = 200
-@export var player_id = 1
 
 var screen_size
 
@@ -15,7 +16,7 @@ enum States {IDLE, RUNNING, SHOOTING, DEAD}
 
 var state: States = States.IDLE
 
-# which direction the player is facing
+# which direction the player_id is facing
 var direction: Vector2 = Vector2.UP
 
 var health = 1.0
@@ -23,31 +24,23 @@ var fire_rate = 0.5
 var fire_timer = 0
 
 ## Properties for PlayerManager -- joining and leaving the game
-var player: int
+var player_id: int
 var input
 
-# call this function when spawning this player to set up the input object based on the device
+# call this function when spawning this player_id to set up the input object based on the device
 func init(player_num: int, device: int):
-	player = player_num
-
-	# in my project, I got the device integer by accessing the singleton autoload PlayerManager
-	# but for simplicity, it's not an autoload in this demo.
-	# but I recommend making it a singleton so you can access the player data from anywhere.
-	# that would look like the following line, instead of the device function parameter above.
-	# var device = PlayerManager.get_player_device(player)
+	player_id = player_num
 	input = DeviceInput.new(device)
-
-	# TODO: Update HUD
-	# $Player.text = "%s" % player_num
-
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	Events.connect("player_damaged", _on_player_damaged)
 
-func start(pos):
-	position = pos
-	show()
+	# TODO: Update HUD
+	_label.text = "%s" % player_id
+
+# func start(pos):
+# 	position = pos
+# 	show()
 
 func get_direction():
 	if input.is_joypad():
@@ -60,9 +53,9 @@ func _process(delta: float) -> void:
 	# TODO: Consider using built-in Godot timer
 	fire_timer += delta
 
-	# let the player leave by pressing the "join" button
+	# let the player_id leave by pressing the "join" button
 	if input.is_action_just_pressed("join"):
-		PlayerManager.leave(player)
+		PlayerManager.leave(player_id)
 
 
 	# update `velocity` based on user input
@@ -90,7 +83,7 @@ func _process(delta: float) -> void:
 			arrow.launch(direction, 30, true)
 			add_child(arrow)
 
-	# TODO: handle targetting >1 player
+	# TODO: handle targetting >1 player_id
 	Events.player_position.emit(global_position)
 
 func set_animation() -> void:
@@ -147,6 +140,6 @@ func set_animation() -> void:
 		# TODO
 		_animated_sprite.stop()
 
-func _on_player_damaged(damage: float):
+func take_damage(damage: float):
 	health -= damage
-	Events.emit_signal("update_health", health)
+	Events.emit_signal("update_health", health, player_id)
