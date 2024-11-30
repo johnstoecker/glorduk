@@ -12,3 +12,5 @@
   - [x] separate controls
   - [x] start to join
   - [x] camera follows players properly
+  - [ ] health updates independently
+  - [ ] enemy pathing considers multiple players

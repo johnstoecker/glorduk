@@ -20,14 +20,14 @@ func _ready() -> void:
 	new_game()
 
 
+# Move the camera to the centroid of the players' positions
 func camera_follow():
-	# center camera on the centroid of the players' positions
 	var players = get_tree().get_nodes_in_group(Globals.GROUP_PLAYER)
 	var camera_pos = tile_to_pos(Vector2(3, 3))
 	if len(players):
 		var total = Vector2.ZERO
 		for p in players:
-			total += p.position
+			total += p.global_position
 		total /= len(players)
 		camera_pos = total
 	camera.position = camera_pos
@@ -93,7 +93,6 @@ func spawn_player(player: int):
 	# create the player node
 	var player_scene = load("res://entities/player/player.tscn")
 	var player_node: Player = player_scene.instantiate()
-	player_node.leave.connect(on_player_leave)
 	player_nodes[player] = player_node
 
 	# let the player know which device controls it
@@ -110,9 +109,3 @@ func spawn_player(player: int):
 func delete_player(player: int):
 	player_nodes[player].queue_free()
 	player_nodes.erase(player)
-
-func on_player_leave(player: int):
-	# just let the player manager know this player is leaving
-	# this will, through the player manager's "player_left" signal,
-	# indirectly call delete_player because it's connected in this file's _ready()
-	PlayerManager.leave(player)

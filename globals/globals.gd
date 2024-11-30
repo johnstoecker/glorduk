@@ -2,7 +2,7 @@ extends Node
 
 enum building_types {FARM, BARRACKS, TROLL_CABIN, TOWN_HALL, TOWN_HALL_2, TOWN_HALL_3}
 
-enum enemy_types {SKELETON, TROLL }
+enum enemy_types {SKELETON, TROLL}
 
 var GROUP_PLAYER = "player"
 var GROUP_ENEMIES = "enemies"
