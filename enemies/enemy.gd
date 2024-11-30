@@ -52,10 +52,14 @@ func repath_to_player():
 		return
 	#for eye in get_tree().get_nodes_in_group("eye"):
 		#eye.queue_free()
-	var player_pos = get_tree().get_nodes_in_group("player")[0].global_position
+	var players = get_tree().get_nodes_in_group("player")
+	if !len(players):
+		return
+
+	var player_pos = players[0].global_position
 	var path = get_tree().get_first_node_in_group("paths").find_path(position, player_pos)
 	current_path = path
-	var font = get_tree().get_nodes_in_group("")
+	# var font = get_tree().get_nodes_in_group("")
 	# for debugging paths
 	#for x in range(current_path.size()):
 		#Events.emit_signal("put_eye", current_path[x])

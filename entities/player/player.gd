@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 @onready var _animated_sprite = $AnimatedSprite2D
 # Called when the node enters the scene tree for the first time.
@@ -21,6 +22,26 @@ var health = 1.0
 
 var auto_fire = false
 
+
+var player: int
+var input
+signal leave
+
+# call this function when spawning this player to set up the input object based on the device
+func init(player_num: int, device: int):
+	player = player_num
+
+	# in my project, I got the device integer by accessing the singleton autoload PlayerManager
+	# but for simplicity, it's not an autoload in this demo.
+	# but I recommend making it a singleton so you can access the player data from anywhere.
+	# that would look like the following line, instead of the device function parameter above.
+	# var device = PlayerManager.get_player_device(player)
+	input = DeviceInput.new(device)
+
+	# TODO: Update HUD
+	# $Player.text = "%s" % player_num
+
+
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	Events.connect("player_damaged", _on_player_damaged)
@@ -31,15 +52,23 @@ func start(pos):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	# TODO: Consider using built-in Godot timer
 	fire_timer += delta
+
+	# let the player leave by pressing the "join" button
+	if input.is_action_just_pressed("join"):
+		# an alternative to this is just call PlayerManager.leave(player)
+		# but that only works if you set up the PlayerManager singleton
+		leave.emit(player)
 
 	velocity = _get_movement()
 
-	var using_gamepad = len(Input.get_connected_joypads()) > 0
-
-	if using_gamepad:
-		var device_id = 0 # TODO: handle >1 gamepad
-		var gamepad_direction = Vector2(Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_X), Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_Y)).normalized()
+	if input.is_joypad():
+		# TODO: Could change this to something like "aim up/down" and "aim left/right" with Input.get_axis("aim_up", "aim_down)
+		var gamepad_direction = Vector2(
+			Input.get_joy_axis(input.device, JOY_AXIS_RIGHT_X),
+			Input.get_joy_axis(input.device, JOY_AXIS_RIGHT_Y)
+		).normalized()
 		# If you aren't pressing the right joystick, we should maintain your previous orientation rather than setting Vector2.ZERO as the drection
 		if gamepad_direction != Vector2.ZERO:
 			direction = gamepad_direction
@@ -57,7 +86,7 @@ func _process(delta: float) -> void:
 		move_and_slide()
 	else:
 		state = States.IDLE
-	if Input.is_action_pressed("attack"):
+	if input.is_action_pressed("attack"):
 		state = States.SHOOTING
 		if fire_timer >= fire_rate:
 			var arrow = arrow_scene.instantiate()
@@ -65,18 +94,22 @@ func _process(delta: float) -> void:
 			arrow.launch(direction, 30, true)
 			add_child(arrow)
 
+	# TODO: handle targetting >1 player
 	Events.player_position.emit(global_position)
 
 func _get_movement() -> Vector2:
+	# TODO: Refactor movement
+	# var move = input.get_vector("move_left", "move_right", "move_up", "move_down")
+	# position += move
 	var movement = Vector2.ZERO
 
-	if Input.is_action_pressed("move_right"):
+	if input.is_action_pressed("move_right"):
 		movement.x += 1
-	if Input.is_action_pressed("move_left"):
+	if input.is_action_pressed("move_left"):
 		movement.x -= 1
-	if Input.is_action_pressed("move_down"):
+	if input.is_action_pressed("move_down"):
 		movement.y += 1
-	if Input.is_action_pressed("move_up"):
+	if input.is_action_pressed("move_up"):
 		movement.y -= 1
 
 	return movement.normalized()

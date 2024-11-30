@@ -3,12 +3,12 @@
 [ext_resource type="Texture2D" uid="uid://dji127oqstxjh" path="res://common/tiles/mapTiles/summer_tiles.png" id="1_h5rfr"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_y41ao"]
 [ext_resource type="Script" path="res://scenes/main/tile_map_layer.gd" id="3_0eydi"]
-[ext_resource type="PackedScene" uid="uid://bw3i4lt5wesgt" path="res://entities/player/player.tscn" id="3_yla30"]
 [ext_resource type="PackedScene" uid="uid://d1wn2bjuhjub4" path="res://ui/hud.tscn" id="4_6ccj4"]
 [ext_resource type="Script" path="res://scenes/main/audio_manager.gd" id="5_ka175"]
 [ext_resource type="AudioStream" uid="uid://bg5vk3a03lmnp" path="res://assets/sounds/Misc/Bowfire.wav" id="5_ps4o7"]
 [ext_resource type="AudioStream" uid="uid://ce8ik218yqtxb" path="res://assets/sounds/Misc/Bowhit.wav" id="6_c3c4p"]
 [ext_resource type="AudioStream" uid="uid://dn3w54rocansy" path="res://assets/music/02 - Human Battle 01.mp3" id="8_4u0a6"]
+[ext_resource type="Script" path="res://scenes/main/player_manager.gd" id="10_4k2uc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a27e4"]
 texture = ExtResource("1_h5rfr")
@@ -411,14 +411,6 @@ tile_map_data = PackedByteArray("AAAAAAAAAQAAAAEAAAABAAAAAQAIAAEAAAACAAAAAQAIAAE
 tile_set = SubResource("TileSet_mxfkq")
 script = ExtResource("3_0eydi")
 
-[node name="Player" parent="." instance=ExtResource("3_yla30")]
-metadata/_edit_lock_ = true
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-
-[node name="Player2" parent="." instance=ExtResource("3_yla30")]
-player_id = 2
-
 [node name="HUD" parent="." instance=ExtResource("4_6ccj4")]
 
 [node name="AudioManager" type="Node" parent="."]
@@ -434,3 +426,8 @@ stream = ExtResource("6_c3c4p")
 [node name="Music" type="AudioStreamPlayer" parent="AudioManager"]
 stream = ExtResource("8_4u0a6")
 autoplay = true
+
+[node name="PlayerManager" type="Node" parent="."]
+script = ExtResource("10_4k2uc")
+
+[node name="Camera2D" type="Camera2D" parent="PlayerManager"]
