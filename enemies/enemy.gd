@@ -20,7 +20,10 @@ var speed = 100
 var current_path = []
 var current_path_index = 0
 
-var attack_proximity = 50
+var attack_timer = 0
+var attack_proximity = 50 # pixels (50 is melee range)
+var attack_rate = 0.5 # seconds-per-attack (lower number is a faster)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_animated_sprite.play("e_walk")
@@ -40,28 +43,35 @@ func _process(delta: float) -> void:
 	if current_state == States.DEAD:
 		return
 
-	# is it time to act (repath, attack, etc)?
-	enemy_path_calc_timer += delta
-	if enemy_path_calc_timer < recalculate_enemy_paths_at:
-		return
-	enemy_path_calc_timer = 0
-
 	# choose target
 	var player = choose_target()
 	if not player:
 		return
 
-	# update the path
-	var path = get_tree().get_first_node_in_group("paths").find_path(position, player.global_position)
-	current_path = path
-	current_path_index = 1
+	attack_timer += delta
 
 	if player.global_position.distance_to(position) <= attack_proximity:
 		# attack
-		current_state = States.ATTACKING
-		linear_velocity = Vector2(0, 0)
-		attack(player)
+
+		if attack_timer >= attack_rate:
+			attack_timer = 0
+			current_state = States.ATTACKING
+			linear_velocity = Vector2(0, 0)
+			attack(player)
+
+		enemy_path_calc_timer = 0 # this ensures we'll repath the next time the enemy moves
 	else:
+		# is it time to act (repath, attack, etc)?
+		enemy_path_calc_timer += delta
+		if enemy_path_calc_timer < recalculate_enemy_paths_at:
+			return
+		enemy_path_calc_timer = 0
+
+		# update the path
+		var path = get_tree().get_first_node_in_group("paths").find_path(position, player.global_position)
+		current_path = path
+		current_path_index = 1
+
 		# move
 		_animated_sprite.play("e_walk")
 		current_state = States.RUNNING
