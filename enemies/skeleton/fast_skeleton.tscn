@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://u6445h1x6fhf"]
+
+[ext_resource type="PackedScene" uid="uid://bapbor6st71x3" path="res://enemies/skeleton/skeleton.tscn" id="1_f6x5n"]
+
+[node name="FastSkeleton" instance=ExtResource("1_f6x5n")]
+modulate = Color(1, 0.0705882, 0.0941176, 1)
+movement_speed = 300

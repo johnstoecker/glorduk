@@ -21,12 +21,15 @@ func _process(delta: float) -> void:
 		spawn_enemy()
 		#Signals.emit_signal('spawn_enemy', Globals.enemy_types.SKELETON)
 		spawn_timer = 0
-	
+
 
 func spawn_enemy():
 	var enemy_type = Globals.enemy_types.SKELETON
 	if building_type == Globals.building_types.FARM:
-		enemy_type = Globals.enemy_types.SKELETON
+		if randf() < 0.1:
+			enemy_type = Globals.enemy_types.FAST_SKELETON
+		else:
+			enemy_type = Globals.enemy_types.SKELETON
 	elif building_type == Globals.building_types.BARRACKS:
 		enemy_type = Globals.enemy_types.TROLL
 	get_parent().spawn_enemy(enemy_type, position)

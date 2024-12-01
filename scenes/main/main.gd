@@ -1,6 +1,7 @@
 extends Node
 
 var skeleton_scene = preload("res://enemies/skeleton/skeleton.tscn")
+var fast_skeleton_scene = preload("res://enemies/skeleton/fast_skeleton.tscn")
 var troll_scene = preload("res://enemies/troll/troll.tscn")
 var spawner_scene = preload("res://entities/spawner/spawner.tscn")
 var eye_scene = preload("res://entities/projectiles/eye/eye.tscn")
@@ -68,10 +69,12 @@ func spawn_enemy(enemy_type: Globals.enemy_types, position: Vector2):
 	match enemy_type:
 		Globals.enemy_types.SKELETON:
 			new_enemy = skeleton_scene.instantiate()
+		Globals.enemy_types.FAST_SKELETON:
+			new_enemy = fast_skeleton_scene.instantiate()
 		Globals.enemy_types.TROLL:
 			new_enemy = troll_scene.instantiate()
 		_:
-			pass
+			assert(false, "spawn_enemy got invalid enemy_type = %s" % enemy_type)
 
 	new_enemy.init(position, Vector2(1, 1))
 	add_sibling(new_enemy)
