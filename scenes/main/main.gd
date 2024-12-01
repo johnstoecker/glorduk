@@ -10,9 +10,6 @@ var player_scene = preload("res://entities/player/player.tscn")
 @onready var camera: Camera2D = $PlayerManager/Camera2D
 @onready var hud: HUD = $HUD
 
-var enemy_path_calc_timer = 0
-var recalculate_enemy_paths_at = 0.5 # recalculate paths every x seconds
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	PlayerManager.player_joined.connect(spawn_player)
@@ -40,11 +37,6 @@ func _process(delta: float) -> void:
 
 	camera_follow()
 
-	enemy_path_calc_timer += delta
-	if enemy_path_calc_timer >= recalculate_enemy_paths_at:
-		enemy_path_recalculate()
-		enemy_path_calc_timer = 0
-
 
 func _on_put_eye(loc: Vector2):
 	var new_eye = eye_scene.instantiate()
@@ -69,10 +61,6 @@ func add_spawner(building_type: Globals.building_types, position: Vector2, is_fr
 		tiles_across = 3
 		tiles_down = 3
 	$TileMapLayer.set_rect_solid(position, tiles_across, tiles_down)
-
-
-func enemy_path_recalculate():
-	get_tree().call_group("enemies", "repath_to_player")
 
 
 func spawn_enemy(enemy_type: Globals.enemy_types, position: Vector2):

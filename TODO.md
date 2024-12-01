@@ -1,10 +1,12 @@
+- [ ] fix bug: trolls spawn as "bloody dead body" sprite
 - [ ] rotate enemies as they change movement direction (8-dir like player)
-  requires setting up animations like "player" tscn
+  requires setting up animations like "player" tscn. prefer to generalize this vs hand-modify each
 - [ ] player injured sound
 - [ ] player can die
 - [ ] show a kill counter (trolls, skeltons)
-- [ ] fix bug: trolls spawn as "bloody dead body" sprite
 - [ ] enemies with >1 hp
+- [ ] refactor AudioManager to a global
+- [x] fix bug: troll "arrow" attack damages as soon as arrow spawns
 - [x] controller input
 - [x] 2 player mode
   - [x] both bound to same controls
@@ -14,4 +16,3 @@
   - [x] camera follows players properly
   - [x] health updates independently
   - [ ] enemy pathing considers multiple players - right now they always target player 0
-

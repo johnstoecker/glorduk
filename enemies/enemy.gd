@@ -25,18 +25,26 @@ var attack_proximity = 50
 func _ready() -> void:
 	_animated_sprite.play("e_walk")
 
+var enemy_path_calc_timer = 0
+var recalculate_enemy_paths_at = 0.5 # recalculate paths every x seconds
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	# if we are close to the first node in path (10?)
-	# go to second node in path, shift first off
-	# otherwise no change in velocity
-	if States.RUNNING && current_path_index < current_path.size():
-		var distance_to_node = position - current_path[current_path_index]
-		# if we are close, pop to next node
-		if abs(distance_to_node.x + distance_to_node.y) < 5:
-			current_path_index += 1
-			if current_path_index < current_path.size():
-				linear_velocity = (current_path[current_path_index] - position).normalized() * speed
+func _process(delta: float) -> void:
+	enemy_path_calc_timer += delta
+	if enemy_path_calc_timer >= recalculate_enemy_paths_at:
+		repath_to_player()
+		enemy_path_calc_timer = 0
+
+	# # if we are close to the first node in path (10?)
+	# # go to second node in path, shift first off
+	# # otherwise no change in velocity
+	# if States.RUNNING && current_path_index < current_path.size():
+	# 	var distance_to_node = position - current_path[current_path_index]
+	# 	# if we are close, pop to next node
+	# 	if abs(distance_to_node.x + distance_to_node.y) < 5:
+	# 		current_path_index += 1
+	# 		if current_path_index < current_path.size():
+	# 			linear_velocity = (current_path[current_path_index] - position).normalized() * speed
 
 func start_position(pos: Vector2):
 	position = pos
@@ -68,9 +76,7 @@ func repath_to_player():
 	if player_pos.distance_to(position) <= attack_proximity:
 		current_state = States.ATTACKING
 		linear_velocity = Vector2(0, 0)
-		var target = player_pos - position
-		attack(target)
-		player.take_damage(0.15)
+		attack(player)
 	else:
 		_animated_sprite.play("e_walk")
 		current_state = States.RUNNING
@@ -79,8 +85,10 @@ func repath_to_player():
 		else:
 			linear_velocity = (player_pos - position).normalized() * speed
 
-func attack(target: Vector2):
+func attack(player: Player):
+	# melee attack hits immediately
 	_animated_sprite.play("e_attack")
+	player.take_damage(0.15)
 
 func die():
 	_animated_sprite.play("die")
