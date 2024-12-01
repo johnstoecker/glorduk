@@ -1,6 +1,6 @@
 extends Node
 
-var enemy_scene = preload("res://enemies/enemy.tscn")
+var skeleton_scene = preload("res://enemies/skeleton/skeleton.tscn")
 var troll_scene = preload("res://enemies/troll/troll.tscn")
 var spawner_scene = preload("res://entities/spawner/spawner.tscn")
 var eye_scene = preload("res://entities/projectiles/eye/eye.tscn")
@@ -64,19 +64,23 @@ func add_spawner(building_type: Globals.building_types, position: Vector2, is_fr
 
 
 func spawn_enemy(enemy_type: Globals.enemy_types, position: Vector2):
-	var new_enemy
-	if enemy_type == Globals.enemy_types.SKELETON:
-		new_enemy = enemy_scene.instantiate()
-	elif enemy_type == Globals.enemy_types.TROLL:
-		new_enemy = troll_scene.instantiate()
-	else:
-		new_enemy = enemy_scene.instantiate()
+	var new_enemy: Enemy
+	match enemy_type:
+		Globals.enemy_types.SKELETON:
+			new_enemy = skeleton_scene.instantiate()
+		Globals.enemy_types.TROLL:
+			new_enemy = troll_scene.instantiate()
+		_:
+			pass
+
 	new_enemy.start_position(position)
 	new_enemy.start_velocity(Vector2(150, 150))
 	add_sibling(new_enemy)
 
 
 # map from player integer to the player node
+# NOTE: need Godot 4.4 before can use dictionary types.. https://github.com/godotengine/godot/pull/78656/files
+# var player_nodes: Dictionary[int, Player] = {}
 var player_nodes = {}
 
 func spawn_player(player: int):

@@ -85,10 +85,8 @@ func repath_to_player():
 		else:
 			linear_velocity = (player_pos - position).normalized() * speed
 
-func attack(player: Player):
-	# melee attack hits immediately
-	_animated_sprite.play("e_attack")
-	player.take_damage(0.15)
+func attack(_player: Player):
+	assert(false, "Enemy.attack() is a virtual method. It must be implemented in the Enemy subclass.")
 
 func die():
 	_animated_sprite.play("die")

@@ -6,7 +6,7 @@
 - [ ] show a kill counter (trolls, skeltons)
 - [ ] enemies with >1 hp
 - [ ] refactor AudioManager to a global
-- [x] fix bug: troll "arrow" attack damages as soon as arrow spawns
+- [x] fix bug: troll 'arrow' attack damages as soon as arrow spawns
 - [x] controller input
 - [x] 2 player mode
   - [x] both bound to same controls
