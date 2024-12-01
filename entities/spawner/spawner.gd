@@ -1,8 +1,5 @@
 extends StaticBody2D
 
-var enemy_scene = preload("res://enemies/enemy.tscn")
-var main_scene = preload("res://scenes/main/main.tscn")
-
 var building_type: Globals.building_types
 
 var spawn_timer
@@ -40,11 +37,11 @@ func place_building(new_building_type: Globals.building_types, new_position: Vec
 	position = new_position
 	if building_type == Globals.building_types.FARM:
 		$Sprite2D.region_rect = Rect2(338, 600, 64, 64)
-		$CollisionShape2D.shape.set_size(Vector2(64,64))
+		$CollisionShape2D.shape.set_size(Vector2(64, 64))
 		spawn_threshold = 3
 	if building_type == Globals.building_types.BARRACKS:
 		$Sprite2D.region_rect = Rect2(108, 241, 96, 96)
-		$CollisionShape2D.shape.set_size(Vector2(96,96))
+		$CollisionShape2D.shape.set_size(Vector2(96, 96))
 		spawn_threshold = 3
 
 	spawn_timer = 0

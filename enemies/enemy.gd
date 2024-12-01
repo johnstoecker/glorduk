@@ -3,8 +3,6 @@ class_name Enemy
 
 @onready var _animated_sprite = $AnimatedSprite2D
 
-@export var enemy_scene: PackedScene
-
 enum States {IDLE, RUNNING, ATTACKING, DEAD}
 var current_state = States.IDLE
 
