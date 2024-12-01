@@ -3,6 +3,8 @@
 
 ## Resources / References
 
+- game UI:
+  - https://www.gameuidatabase.com/gameData.php?id=806
 - sfx
   - https://www.thanatosrealms.com/war2/horde-sounds
 - music
