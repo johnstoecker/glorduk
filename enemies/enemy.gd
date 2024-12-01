@@ -46,11 +46,9 @@ func _process(delta: float) -> void:
 	# 		if current_path_index < current_path.size():
 	# 			linear_velocity = (current_path[current_path_index] - position).normalized() * speed
 
-func start_position(pos: Vector2):
+func init(pos: Vector2, direction: Vector2):
 	position = pos
-
-func start_velocity(vel: Vector2):
-	linear_velocity = vel.normalized() * speed
+	linear_velocity = direction.normalized() * speed
 
 func _on_body_entered(body):
 	pass

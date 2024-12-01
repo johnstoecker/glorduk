@@ -73,8 +73,7 @@ func spawn_enemy(enemy_type: Globals.enemy_types, position: Vector2):
 		_:
 			pass
 
-	new_enemy.start_position(position)
-	new_enemy.start_velocity(Vector2(150, 150))
+	new_enemy.init(position, Vector2(1, 1))
 	add_sibling(new_enemy)
 
 
