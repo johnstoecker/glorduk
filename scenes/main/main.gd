@@ -54,7 +54,7 @@ func new_game() -> void:
 
 func add_spawner(building_type: Globals.building_types, position: Vector2, is_friendly: bool):
 	var new_building = spawner_scene.instantiate()
-	new_building.place_building(building_type, position, is_friendly)
+	new_building.init(building_type, position, is_friendly)
 	add_child(new_building)
 	var tiles_across = 4
 	var tiles_down = 4
