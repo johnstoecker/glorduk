@@ -9,6 +9,8 @@ enum friendly_types {FOOTMAN, MAGE }
 var HUMAN_HOME = Vector2(100,100)
 var ORC_HOME = Vector2(1200, 100)
 
+enum States {IDLE, RUNNING, SHOOTING, ATTACKING, DEAD}
+
 var GROUP_PLAYER = "player"
 var GROUP_ENEMIES = "enemies"
 var GROUP_FRIENDLIES = "friendlies"

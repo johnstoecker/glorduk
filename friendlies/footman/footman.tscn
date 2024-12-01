@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bfj4oyuojmgd8"]
+[gd_scene load_steps=16 format=3 uid="uid://bfj4oyuojmgd8"]
 
 [ext_resource type="Script" path="res://friendlies/footman/footman.gd" id="1_ii2bh"]
 [ext_resource type="Texture2D" uid="uid://m4x55jaorv51" path="res://friendlies/footman/footman.png" id="2_lbnvb"]
@@ -98,6 +98,8 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g3t3j"]
+
 [node name="Footman" type="RigidBody2D" groups=["friendlies"]]
 z_index = 5
 collision_layer = 16
@@ -106,8 +108,9 @@ gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_ii2bh")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["friendlies"]]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1dfw2")
 animation = &"e_walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_g3t3j")

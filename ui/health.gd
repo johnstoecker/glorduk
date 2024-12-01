@@ -1,7 +1,8 @@
 extends Control
-
+class_name Health
 
 @onready var foreground: ColorRect = $Foreground
+@export var player_id = -1
 
 var amount: float = 1:
 	get:
@@ -21,8 +22,13 @@ func _ready() -> void:
 	Events.connect("update_health", _on_update_health)
 	pass
 
-func _on_update_health(ratio: float):
-	amount = ratio
+func _on_update_health(ratio: float, player_id_arg: int):
+	print("got on update health")
+	print(ratio)
+	print(player_id_arg)
+	print("....")
+	if player_id == player_id_arg:
+		amount = ratio
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

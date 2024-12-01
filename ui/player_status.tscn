@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcnljdku4lhjw"]
+
+[ext_resource type="Script" path="res://ui/player_status.gd" id="1_2ln66"]
+[ext_resource type="Texture2D" uid="uid://50ya6aijpt4d" path="res://ui/icons.png" id="1_urej2"]
+[ext_resource type="PackedScene" uid="uid://gwawuslf3jr8" path="res://ui/health.tscn" id="2_i31p5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wp0ye"]
+atlas = ExtResource("1_urej2")
+region = Rect2(202, 0, 44, 44)
+
+[node name="PlayerStatus" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 8.0
+offset_right = 48.0
+offset_bottom = 40.0
+script = ExtResource("1_2ln66")
+
+[node name="Name" type="RichTextLabel" parent="."]
+layout_mode = 2
+offset_top = 480.0
+offset_right = 63.0
+offset_bottom = 506.0
+theme_override_font_sizes/normal_font_size = 0
+text = "Player 0"
+
+[node name="InputDevice" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 2
+offset_top = 500.0
+offset_right = 63.0
+offset_bottom = 526.0
+theme_override_font_sizes/normal_font_size = 12
+text = "Keyboard + Mouse"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = 518.0
+offset_right = 62.0
+offset_bottom = 581.0
+texture = SubResource("AtlasTexture_wp0ye")
+stretch_mode = 4
+
+[node name="Health" parent="." instance=ExtResource("2_i31p5")]
+layout_mode = 2
+offset_top = 582.0
+offset_right = 0.0
+offset_bottom = 582.0
+scale = Vector2(0.125, 0.125)

@@ -14,10 +14,10 @@ func _process(delta: float) -> void:
 
 func attack(node):
 	#_animated_sprite.play("e_attack")
-	#node.damage_health(0.1)
+	#node.take_damage(0.1)
 #	Events.emit_signal("player_damaged", 0.1)
 
 	var arrow = arrow_scene.instantiate()
 	fire_timer = 0
-	arrow.launch(node.global_position - position, 30, false)
+	arrow.launch(node.global_position - position, 30, false, 0.1)
 	add_child(arrow)

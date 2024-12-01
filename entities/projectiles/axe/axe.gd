@@ -33,7 +33,7 @@ func _on_body_entered(body):
 func _on_screen_exit():
 	queue_free()
 
-func launch(direction: Vector2, speed: float):
+func launch(direction: Vector2, speed: float, strength: float):
 	velocity = direction * speed
 	var rotate_dir = atan2(velocity.y, velocity.x)
 	rotate(rotate_dir)

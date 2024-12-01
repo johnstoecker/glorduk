@@ -12,8 +12,9 @@ func _ready() -> void:
 	attack_proximity = 50
 	_animated_sprite.play("e_walk")
 
-func repath_to_player():
-	if current_state == States.DEAD:
+# TODO: delete me
+func old_repath_to_player():
+	if current_state == Globals.States.DEAD:
 		return
 	var all_targets = []
 	if is_friendly:
@@ -32,14 +33,14 @@ func repath_to_player():
 
 	current_path_index = 1
 	if min_distance <= attack_proximity:
-		current_state = States.ATTACKING
+		current_state = Globals.States.ATTACKING
 		linear_velocity = Vector2(0, 0)
 		attack(nearest_target)
 	elif min_distance <= sight_proximity:
 		var path = get_tree().get_first_node_in_group("paths").find_path(position, nearest_target.global_position)
 		current_path = path
 		_animated_sprite.play("e_walk")
-		current_state = States.RUNNING
+		current_state = Globals.States.RUNNING
 		# if we have a path to nearest enemy, take it
 		if current_path.size() > 2:
 			linear_velocity = (current_path[current_path_index] - position).normalized() * speed
@@ -52,7 +53,7 @@ func repath_to_player():
 	else:
 		# otherwise send to enemy home
 		_animated_sprite.play("e_walk")
-		current_state = States.RUNNING
+		current_state = Globals.States.RUNNING
 		if is_friendly:
 			linear_velocity = (Globals.ORC_HOME - position).normalized() * speed
 		else:
@@ -60,7 +61,7 @@ func repath_to_player():
 
 func attack(node):
 	_animated_sprite.play("e_attack")
-	node.damage_health(0.1)
+	node.take_damage(0.1)
 #	Events.emit_signal("player_damaged", 0.1)
 
 func die():
@@ -71,7 +72,7 @@ func die():
 	linear_velocity = Vector2i(0,0)
 	set_process(false)
 	print("i died!")
-	current_state = States.DEAD
+	current_state = Globals.States.DEAD
 	await get_tree().create_timer(8).timeout
 	queue_free()
 	

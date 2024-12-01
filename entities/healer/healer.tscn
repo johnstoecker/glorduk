@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhsdl60l4ras1"]
+
+[ext_resource type="Texture2D" uid="uid://iiv2iva2hemm" path="res://entities/healer/portal.png" id="1_r2k60"]
+
+[node name="Healer" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_r2k60")
