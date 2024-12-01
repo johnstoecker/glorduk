@@ -28,23 +28,47 @@ func _ready() -> void:
 var enemy_path_calc_timer = 0
 var recalculate_enemy_paths_at = 0.5 # recalculate paths every x seconds
 
+func choose_target() -> Player:
+	var players = get_tree().get_nodes_in_group(Globals.GROUP_PLAYER)
+	if !len(players):
+		return
+	var player: Player = players[0]
+	return player
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	enemy_path_calc_timer += delta
-	if enemy_path_calc_timer >= recalculate_enemy_paths_at:
-		repath_to_player()
-		enemy_path_calc_timer = 0
+	if current_state == States.DEAD:
+		return
 
-	# # if we are close to the first node in path (10?)
-	# # go to second node in path, shift first off
-	# # otherwise no change in velocity
-	# if States.RUNNING && current_path_index < current_path.size():
-	# 	var distance_to_node = position - current_path[current_path_index]
-	# 	# if we are close, pop to next node
-	# 	if abs(distance_to_node.x + distance_to_node.y) < 5:
-	# 		current_path_index += 1
-	# 		if current_path_index < current_path.size():
-	# 			linear_velocity = (current_path[current_path_index] - position).normalized() * speed
+	# is it time to act (repath, attack, etc)?
+	enemy_path_calc_timer += delta
+	if enemy_path_calc_timer < recalculate_enemy_paths_at:
+		return
+	enemy_path_calc_timer = 0
+
+	# choose target
+	var player = choose_target()
+	if not player:
+		return
+
+	# update the path
+	var path = get_tree().get_first_node_in_group("paths").find_path(position, player.global_position)
+	current_path = path
+	current_path_index = 1
+
+	if player.global_position.distance_to(position) <= attack_proximity:
+		# attack
+		current_state = States.ATTACKING
+		linear_velocity = Vector2(0, 0)
+		attack(player)
+	else:
+		# move
+		_animated_sprite.play("e_walk")
+		current_state = States.RUNNING
+		if current_path.size() > 2:
+			linear_velocity = (current_path[current_path_index] - position).normalized() * speed
+		else:
+			linear_velocity = (player.global_position - position).normalized() * speed
 
 func init(pos: Vector2, direction: Vector2):
 	position = pos
@@ -52,36 +76,6 @@ func init(pos: Vector2, direction: Vector2):
 
 func _on_body_entered(body):
 	pass
-
-func repath_to_player():
-	if current_state == States.DEAD:
-		return
-	#for eye in get_tree().get_nodes_in_group("eye"):
-		#eye.queue_free()
-	var players = get_tree().get_nodes_in_group(Globals.GROUP_PLAYER)
-	if !len(players):
-		return
-	var player: Player = players[0]
-
-	var player_pos = player.global_position
-	var path = get_tree().get_first_node_in_group("paths").find_path(position, player_pos)
-	current_path = path
-	# var font = get_tree().get_nodes_in_group("")
-	# for debugging paths
-	#for x in range(current_path.size()):
-		#Events.emit_signal("put_eye", current_path[x])
-	current_path_index = 1
-	if player_pos.distance_to(position) <= attack_proximity:
-		current_state = States.ATTACKING
-		linear_velocity = Vector2(0, 0)
-		attack(player)
-	else:
-		_animated_sprite.play("e_walk")
-		current_state = States.RUNNING
-		if current_path.size() > 2:
-			linear_velocity = (current_path[current_path_index] - position).normalized() * speed
-		else:
-			linear_velocity = (player_pos - position).normalized() * speed
 
 func attack(_player: Player):
 	assert(false, "Enemy.attack() is a virtual method. It must be implemented in the Enemy subclass.")
