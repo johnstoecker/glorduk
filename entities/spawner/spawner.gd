@@ -1,13 +1,10 @@
 extends StaticBody2D
 
-var enemy_scene = preload("res://enemies/enemy.tscn")
-var main_scene = preload("res://scenes/main/main.tscn")
-
 var building_type: Globals.building_types
 
 var spawn_timer
-# how often to spawn an enemy
-var spawn_threshold = 3
+## Spawn an enemy every X seconds
+@export var spawn_rate = 3
 
 var enabled = false
 var is_friendly = false
@@ -20,11 +17,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	spawn_timer += delta
-	if enabled && spawn_timer >= spawn_threshold:
+	if enabled && spawn_timer >= spawn_rate:
 		spawn_enemy()
-		#Signals.emit_signal('spawn_enemy', Globals.enemy_types.SKELETON)
 		spawn_timer = 0
-	
+
 
 func spawn_enemy():
 	if is_friendly:
@@ -33,12 +29,15 @@ func spawn_enemy():
 	else:
 		var enemy_type = Globals.enemy_types.SKELETON
 		if building_type == Globals.building_types.ORC_FARM:
-			enemy_type = Globals.enemy_types.SKELETON
+			if randf() < 0.1:
+				enemy_type = Globals.enemy_types.FAST_SKELETON
+			else:
+				enemy_type = Globals.enemy_types.SKELETON
 		elif building_type == Globals.building_types.ORC_BARRACKS:
 			enemy_type = Globals.enemy_types.TROLL
 		get_parent().spawn_enemy(enemy_type, position)
 
-func place_building(new_building_type: Globals.building_types, new_position: Vector2, friendly: bool):
+func init(new_building_type: Globals.building_types, new_position: Vector2, friendly: bool):
 	is_friendly = friendly
 	if is_friendly:
 		$Sprite2DOrcs.visible = false
@@ -50,22 +49,22 @@ func place_building(new_building_type: Globals.building_types, new_position: Vec
 		$Sprite2DOrcs.region_rect = Rect2(338, 600, 64, 64)
 		$Sprite2DOrcs.region_enabled = true
 		$CollisionShape2D.shape.set_size(Vector2(64,64))
-		spawn_threshold = 3
+		spawn_rate = 3
 	elif building_type == Globals.building_types.ORC_BARRACKS:
 		$Sprite2DOrcs.region_rect = Rect2(108, 241, 96, 96)
 		$Sprite2DOrcs.region_enabled = true
 		$CollisionShape2D.shape.set_size(Vector2(96,96))
-		spawn_threshold = 3
+		spawn_rate = 3
 	elif building_type == Globals.building_types.HUMAN_FARM:
 		$Sprite2DHumans.region_rect = Rect2(395, 0, 72, 69)
 		$Sprite2DHumans.region_enabled = true
 		$CollisionShape2D.shape.set_size(Vector2(72,69))
-		spawn_threshold = 3
+		spawn_rate = 3
 	elif building_type == Globals.building_types.HUMAN_BARRACKS:
 		$Sprite2DHumans.region_rect = Rect2(305, 458, 99, 96)
 		$Sprite2DHumans.region_enabled = true
 		$CollisionShape2D.shape.set_size(Vector2(99,97))
-		spawn_threshold = 3
+		spawn_rate = 3
 
 	spawn_timer = 0
 	enabled = true

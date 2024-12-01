@@ -1,9 +1,10 @@
 extends Node
+class_name Global
 
 enum building_types {ORC_FARM, ORC_BARRACKS, ORC_TROLL_CABIN, ORC_TOWN_HALL, ORC_TOWN_HALL_2, ORC_TOWN_HALL_3,
 HUMAN_FARM, HUMAN_BARRACKS, HUMAN_ELF_CABIN, HUMAN_TOWN_HALL, HUMAN_TOWN_HALL_2, HUMAN_TOWN_HALL_3}
 
-enum enemy_types {SKELETON, TROLL }
+enum enemy_types {SKELETON, TROLL, FAST_SKELETON}
 enum friendly_types {FOOTMAN, MAGE }
 
 var HUMAN_HOME = Vector2(100,100)

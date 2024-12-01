@@ -1,7 +1,8 @@
 extends Node
 
 var healer_scene = preload("res://entities/healer/healer.tscn")
-var enemy_scene = preload("res://enemies/enemy.tscn")
+var skeleton_scene = preload("res://enemies/skeleton/skeleton.tscn")
+var fast_skeleton_scene = preload("res://enemies/skeleton/fast_skeleton.tscn")
 var troll_scene = preload("res://enemies/troll/troll.tscn")
 var spawner_scene = preload("res://entities/spawner/spawner.tscn")
 var eye_scene = preload("res://entities/projectiles/eye/eye.tscn")
@@ -10,9 +11,6 @@ var footman_scene = preload("res://friendlies/footman/footman.tscn")
 
 @onready var camera: Camera2D = $PlayerManager/Camera2D
 @onready var hud: HUD = $HUD
-
-var enemy_path_calc_timer = 0
-var recalculate_enemy_paths_at = 0.5 # recalculate paths every x seconds
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -41,11 +39,6 @@ func _process(delta: float) -> void:
 
 	camera_follow()
 
-	enemy_path_calc_timer += delta
-	if enemy_path_calc_timer >= recalculate_enemy_paths_at:
-		enemy_path_recalculate()
-		enemy_path_calc_timer = 0
-
 
 func _on_put_eye(loc: Vector2):
 	var new_eye = eye_scene.instantiate()
@@ -68,7 +61,7 @@ func new_game() -> void:
 
 func add_spawner(building_type: Globals.building_types, position: Vector2, is_friendly: bool):
 	var new_building = spawner_scene.instantiate()
-	new_building.place_building(building_type, position, is_friendly)
+	new_building.init(building_type, position, is_friendly)
 	add_child(new_building)
 	var tiles_across = 4
 	var tiles_down = 4
@@ -84,26 +77,34 @@ func enemy_path_recalculate():
 
 func spawn_friendly(friendly_type: Globals.friendly_types, position: Vector2):
 	var new_friendly
-	if friendly_type == Globals.friendly_types.FOOTMAN:
-		new_friendly = footman_scene.instantiate()
-	new_friendly.start_position(position)
-	new_friendly.start_velocity(Vector2(150,150))
+	match friendly_type:
+		Globals.friendly_types.FOOTMAN:
+			new_friendly = footman_scene.instantiate()
+		_:
+			assert(false, "spawn_friendly got invalid friendly_type = %s" % friendly_type)
+	
+	new_friendly.init(position, Vector2(1,0))
 	add_sibling(new_friendly)
 
 func spawn_enemy(enemy_type: Globals.enemy_types, position: Vector2):
-	var new_enemy
-	if enemy_type == Globals.enemy_types.SKELETON:
-		new_enemy = enemy_scene.instantiate()
-	elif enemy_type == Globals.enemy_types.TROLL:
-		new_enemy = troll_scene.instantiate()
-	else:
-		new_enemy = enemy_scene.instantiate()
-	new_enemy.start_position(position)
-	new_enemy.start_velocity(Vector2(150, 150))
+	var new_enemy: Enemy
+	match enemy_type:
+		Globals.enemy_types.SKELETON:
+			new_enemy = skeleton_scene.instantiate()
+		Globals.enemy_types.FAST_SKELETON:
+			new_enemy = fast_skeleton_scene.instantiate()
+		Globals.enemy_types.TROLL:
+			new_enemy = troll_scene.instantiate()
+		_:
+			assert(false, "spawn_enemy got invalid enemy_type = %s" % enemy_type)
+
+	new_enemy.init(position, Vector2(-1, 0))
 	add_sibling(new_enemy)
 
 
 # map from player integer to the player node
+# NOTE: need Godot 4.4 before can use dictionary types.. https://github.com/godotengine/godot/pull/78656/files
+# var player_nodes: Dictionary[int, Player] = {}
 var player_nodes = {}
 
 func spawn_player(player: int):
