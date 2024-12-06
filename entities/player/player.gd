@@ -160,7 +160,7 @@ func take_damage(damage: float):
 		current_state = Globals.States.DEAD
 		await get_tree().create_timer(3).timeout
 		current_state = Globals.States.IDLE
-		position = Vector2(randi_range(96, 128), randi_range(96, 128))
+		position = Vector2(randi_range(96, 128), randi_range(480, 512))
 		health = 1
 		Events.emit_signal("update_health", health, player_id)
 

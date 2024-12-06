@@ -11,7 +11,7 @@ func init(player_num: int):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_health.player_id = player_id
+	_health.target_id = player_id
 	_name.text = "Player %d" % player_id
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

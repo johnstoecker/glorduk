@@ -15,10 +15,11 @@ enum States {IDLE, RUNNING, SHOOTING, ATTACKING, DEAD}
 var GROUP_PLAYER = "player"
 var GROUP_ENEMIES = "enemies"
 var GROUP_FRIENDLIES = "friendlies"
+var GROUP_BASES = "bases"
 
 # does not include walls (or outside trees etc
-var num_tiles_across = 50
-var num_tiles_down = 50
+var num_tiles_across = 150
+var num_tiles_down = 150
 
 var tile_size = 32
 

@@ -14,7 +14,7 @@ func _ready() -> void:
 	for x in Globals.num_tiles_across:
 		for y in Globals.num_tiles_down:
 			var data = get_cell_tile_data(Vector2i(x, y))
-			if data.get_collision_polygons_count(0) > 0:
+			if data != null && data.get_collision_polygons_count(0) > 0:
 				astar_grid.set_point_solid(Vector2i(x, y), true)
 
 

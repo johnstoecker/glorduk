@@ -45,6 +45,7 @@ player=""
 paths=""
 eye=""
 friendlies=""
+bases=""
 
 [gui]
 

@@ -1,11 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1wn2bjuhjub4"]
+[gd_scene load_steps=5 format=3 uid="uid://d1wn2bjuhjub4"]
 
 [ext_resource type="Script" path="res://ui/hud.gd" id="1_1fj4c"]
 [ext_resource type="PackedScene" uid="uid://dcnljdku4lhjw" path="res://ui/player_status.tscn" id="2_nu7jf"]
+[ext_resource type="Texture2D" uid="uid://vevxq3mkjv7w" path="res://ui/paper background.png" id="3_gad6t"]
+[ext_resource type="PackedScene" uid="uid://ccy8j8kdny6ic" path="res://ui/base_status/BaseStatus.tscn" id="4_omljq"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_1fj4c")
 player_status = ExtResource("2_nu7jf")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 113.0
+offset_bottom = 623.0
+texture = ExtResource("3_gad6t")
+expand_mode = 1
+stretch_mode = 1
 
 [node name="Players" type="Control" parent="."]
 layout_mode = 3
@@ -28,5 +37,17 @@ offset_top = 4.0
 offset_right = 198.0
 offset_bottom = 30.0
 theme_override_font_sizes/normal_font_size = 0
-text = "WARCRAFT II: GLORDUK"
+text = "GLOR-DUK"
 metadata/_edit_lock_ = true
+
+[node name="Humans" parent="." instance=ExtResource("4_omljq")]
+offset_left = 22.0
+offset_top = 385.0
+offset_right = 22.0
+offset_bottom = 385.0
+
+[node name="Orcs" parent="." instance=ExtResource("4_omljq")]
+offset_left = 23.0
+offset_top = 488.0
+offset_right = 23.0
+offset_bottom = 488.0

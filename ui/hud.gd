@@ -9,6 +9,8 @@ var active_players = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$Humans.init(10)
+	$Orcs.init(11)
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -34,11 +36,11 @@ func remove_player(player: int) -> void:
 
 func update_ui_layout():
 	var padding = 24
-	var player_status_width = 96
+	var player_status_height = 106
 	var idx = 0
 	var keys = active_players.keys()
 	keys.sort()
 	for k in keys:
 		var n = active_players[k]
-		n.position.x = padding + (idx * player_status_width)
+		n.position.y = padding + (idx * player_status_height)
 		idx += 1

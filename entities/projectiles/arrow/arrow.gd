@@ -44,6 +44,9 @@ func _on_body_entered(body):
 		body.take_damage(arrow_strength)
 		# body.die()
 		queue_free()
+	elif body.is_in_group(Globals.GROUP_BASES):
+		body.take_damage(arrow_strength)
+		queue_free()
 
 # TODO: on viewport exit
 func _on_screen_exit():

@@ -8,6 +8,7 @@ var spawner_scene = preload("res://entities/spawner/spawner.tscn")
 var eye_scene = preload("res://entities/projectiles/eye/eye.tscn")
 var player_scene = preload("res://entities/player/player.tscn")
 var footman_scene = preload("res://friendlies/footman/footman.tscn")
+var base_scene = preload("res://entities/base/base.tscn")
 
 @onready var camera: Camera2D = $PlayerManager/Camera2D
 @onready var hud: HUD = $HUD
@@ -53,11 +54,28 @@ func new_game() -> void:
 #	$Player.start(Vector2(80, 80))
 	add_spawner(Globals.building_types.ORC_FARM, Vector2(1200,300), false)
 	add_spawner(Globals.building_types.ORC_BARRACKS, Vector2(1800,300), false)
+	add_spawner(Globals.building_types.ORC_BARRACKS, Vector2(1800,500), false)
 	#add_spawner(Globals.building_types.HUMAN_FARM, Vector2(1200,300), true)
 	add_spawner(Globals.building_types.HUMAN_BARRACKS, Vector2(300,300), true)
+	add_spawner(Globals.building_types.HUMAN_BARRACKS, Vector2(300,500), true)
+	add_spawner(Globals.building_types.HUMAN_BARRACKS, Vector2(300,700), true)
 	var new_healer = healer_scene.instantiate()
-	new_healer.position = Vector2(96,96)
+	new_healer.position = Vector2(96,480)
 	add_child(new_healer)
+	create_bases()
+
+func create_bases():
+	var orc_base = base_scene.instantiate()
+	orc_base.init(false)
+	orc_base.position = Globals.ORC_HOME
+	add_child(orc_base)
+	$TileMapLayer.set_rect_solid(Globals.ORC_HOME, 4, 4)
+	
+	var human_base = base_scene.instantiate()
+	human_base.init(true)
+	human_base.position = Globals.HUMAN_HOME
+	add_child(human_base)
+	$TileMapLayer.set_rect_solid(Globals.HUMAN_HOME, 4, 4)
 
 func add_spawner(building_type: Globals.building_types, position: Vector2, is_friendly: bool):
 	var new_building = spawner_scene.instantiate()
@@ -120,12 +138,11 @@ func spawn_player(player: int):
 	add_child(player_node)
 
 	# random spawn position inside the "spawn area"
-	var tile = Vector2(randi_range(3, 4), randi_range(3, 4))
+	var tile = Vector2(randi_range(3, 4), randi_range(11, 12))
 	player_node.position = tile_to_pos(tile)
 
 	# update the HUD
 	hud.add_player(player)
-
 
 func delete_player(player: int):
 	player_nodes[player].queue_free()

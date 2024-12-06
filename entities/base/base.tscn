@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhahcmo8cy50g"]
+
+[ext_resource type="Script" path="res://entities/base/base.gd" id="1_yt7wh"]
+[ext_resource type="Texture2D" uid="uid://deg5geqwy51xx" path="res://entities/spawner/assets/human_buildings.png" id="2_uvpxu"]
+[ext_resource type="Texture2D" uid="uid://c8c1bqu37ieok" path="res://entities/spawner/assets/orc_buildings.png" id="3_aqdqu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u0xe5"]
+size = Vector2(127, 122)
+
+[node name="Base" type="RigidBody2D" groups=["bases"]]
+collision_mask = 30
+gravity_scale = 0.0
+script = ExtResource("1_yt7wh")
+
+[node name="HumansSprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_uvpxu")
+region_enabled = true
+region_rect = Rect2(269, 11, 121, 121)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -1)
+shape = SubResource("RectangleShape2D_u0xe5")
+
+[node name="OrcsSprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_aqdqu")
+region_enabled = true
+region_rect = Rect2(268, 17, 127.936, 123.5)
