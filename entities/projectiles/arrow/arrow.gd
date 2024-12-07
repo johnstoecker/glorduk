@@ -18,7 +18,7 @@ var velocity: Vector2
 var is_friendly = false
 
 var arrow_strength = 0.1
-
+var source = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,28 +33,31 @@ func _process(delta: float) -> void:
 func _on_body_entered(body):
 	if is_friendly && body.is_in_group(Globals.GROUP_ENEMIES) && is_instance_valid(body) && body.get_state() != Globals.States.DEAD:
 		# NOTE: anything in "enemies" group must now implement take_damage() and die() method
-		body.take_damage(arrow_strength)
-		# body.die()
-		queue_free()
+		do_hit(body)
 	elif !is_friendly && body.is_in_group(Globals.GROUP_PLAYER) && body.get_state() != Globals.States.DEAD:
-		body.take_damage(arrow_strength)
-		# body.die()
-		queue_free()
+		do_hit(body)
 	elif !is_friendly && body.is_in_group(Globals.GROUP_FRIENDLIES) && body.get_state() != Globals.States.DEAD:
-		body.take_damage(arrow_strength)
-		# body.die()
-		queue_free()
+		do_hit(body)
 	elif body.is_in_group(Globals.GROUP_BASES):
-		body.take_damage(arrow_strength)
-		queue_free()
+		do_hit(body)
+
+func do_hit(body):
+	body.take_damage(arrow_strength)
+	if source != null:
+		source.increment_kills()
+	queue_free()
 
 # TODO: on viewport exit
 func _on_screen_exit():
 	queue_free()
 
-func launch(direction: Vector2, speed: float, friendly_arrow: bool, strength: float):
+func launch(direction: Vector2, speed: float, friendly_arrow: bool, strength: float, init_source: Node):
+	source = init_source
 	arrow_strength = strength
 	velocity = direction.normalized() * speed
+	is_friendly = friendly_arrow
+	set_launch_sprite(direction,speed, friendly_arrow, strength)
+	
+func set_launch_sprite(direction: Vector2, speed: float, friendly_arrow: bool, strength: float):
 	var rotate_dir = atan2(velocity.y, velocity.x)
 	rotate(rotate_dir)
-	is_friendly = friendly_arrow

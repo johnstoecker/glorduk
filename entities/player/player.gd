@@ -18,12 +18,19 @@ var current_state: Globals.States = Globals.States.IDLE
 var direction: Vector2 = Vector2.UP
 
 var health = 1.0
-var fire_rate = 0.5
 var fire_timer = 0
 
 ## Properties for PlayerManager -- joining and leaving the game
 var player_id: int
 var input
+var skill_strength = 1
+var skill_speed = 1
+var fire_rate = 0.5 - (skill_speed-1)/20
+var strength = 0.5 + (skill_strength -1)/10
+var level = 1
+var exp = 0
+var kills = 0
+var available_skill_points = 0
 
 # call this function when spawning this player_id to set up the input object based on the device
 func init(player_num: int, device: int):
@@ -84,11 +91,42 @@ func _process(delta: float) -> void:
 		if fire_timer >= fire_rate:
 			var arrow = arrow_scene.instantiate()
 			fire_timer = 0
-			arrow.launch(direction, 30, true, 0.5)
+			arrow.launch(direction, 30, true, strength, self)
 			add_child(arrow)
 
 	# TODO: handle targetting >1 player_id
 	Events.player_position.emit(global_position)
+
+func upgrade_skill(skill: String):
+	var value = 0
+	if skill == "STR":
+		skill_strength += 1
+		value = skill_strength
+		strength = 0.5 + (skill_strength -1.0)/10.0
+		print("strength is now")
+		print(strength)
+	elif skill == "SPD":
+		skill_speed += 1
+		value = skill_speed
+		fire_rate = 0.5 - (skill_speed-1.0)/20.0
+		if fire_rate < 0.1:
+			fire_rate = 0.1
+		print("fire rate is now")
+		print(fire_rate)
+
+	Events.emit_signal("update_skill", value, player_id, skill)
+
+func increment_kills():
+	kills += 1
+	exp += 1
+	var level_exp_required = (level+1.0) ** 1.5
+	if exp > level_exp_required:
+		exp = 0
+		level += 1
+		upgrade_skill("SPD")
+		upgrade_skill("STR")
+		#available_skill_points += 1
+	Events.emit_signal("update_exp", exp/level_exp_required, player_id)
 
 func set_animation() -> void:
 	_animated_sprite.flip_h = false

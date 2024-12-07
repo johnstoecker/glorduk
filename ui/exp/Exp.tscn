@@ -1,0 +1,92 @@
+[gd_scene load_steps=3 format=3 uid="uid://ds51vg7aq63gu"]
+
+[ext_resource type="Script" path="res://ui/exp/exp.gd" id="1_cb4jf"]
+
+[sub_resource type="Theme" id="Theme_npkhi"]
+default_font_size = 90
+
+[node name="Exp" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+theme = SubResource("Theme_npkhi")
+script = ExtResource("1_cb4jf")
+
+[node name="Container" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 504.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.312466, 0.312466, 0.312466, 1)
+
+[node name="Foreground" type="ColorRect" parent="."]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 504.0
+offset_bottom = 56.0
+color = Color(0.168366, 0.172874, 0.98839, 1)
+
+[node name="STR_CONTROL" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 523.0
+offset_top = -257.0
+offset_right = 563.0
+offset_bottom = -217.0
+
+[node name="Title" type="RichTextLabel" parent="STR_CONTROL"]
+clip_contents = false
+layout_mode = 2
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 357.0
+offset_bottom = 99.0
+text = "STR
+"
+
+[node name="Value" type="RichTextLabel" parent="STR_CONTROL"]
+clip_contents = false
+offset_left = 195.0
+offset_top = -6.0
+offset_right = 383.0
+offset_bottom = 99.0
+theme_override_font_sizes/normal_font_size = 0
+text = "1"
+
+[node name="SPD_CONTROL" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 522.0
+offset_top = -117.0
+offset_right = 562.0
+offset_bottom = -77.0
+
+[node name="Title" type="RichTextLabel" parent="SPD_CONTROL"]
+clip_contents = false
+layout_mode = 2
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 198.0
+offset_bottom = 108.0
+theme_override_font_sizes/normal_font_size = 0
+text = "SPD
+"
+
+[node name="Value" type="RichTextLabel" parent="SPD_CONTROL"]
+clip_contents = false
+offset_left = 195.0
+offset_top = -4.0
+offset_right = 408.0
+offset_bottom = 89.0
+theme_override_font_sizes/normal_font_size = 0
+text = "1"

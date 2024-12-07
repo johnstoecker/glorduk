@@ -12,6 +12,7 @@ var current_state = Globals.States.IDLE
 
 var speed = 100
 var health = 1.0
+var kills = 0
 
 var is_friendly = false
 
@@ -84,6 +85,8 @@ func _process(delta: float) -> void:
 		else:
 			linear_velocity = (target.global_position - position).normalized() * movement_speed
 
+func increment_kills():
+	kills += 1
 
 func init(pos: Vector2, direction: Vector2):
 	position = pos

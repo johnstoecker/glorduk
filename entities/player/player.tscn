@@ -313,7 +313,7 @@ script = ExtResource("1_jaxha")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.00245, 0.99556)
 sprite_frames = SubResource("SpriteFrames_m5axi")
-animation = &"ne_shoot"
+animation = &"s_walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_af83y")

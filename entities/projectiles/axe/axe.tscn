@@ -1,14 +1,57 @@
-[gd_scene load_steps=2 format=3 uid="uid://crnxjfs3ch8vk"]
+[gd_scene load_steps=10 format=3 uid="uid://crnxjfs3ch8vk"]
 
 [ext_resource type="Script" path="res://entities/projectiles/axe/axe.gd" id="1_y6oyt"]
+[ext_resource type="Texture2D" uid="uid://oa7yax3we5o" path="res://entities/projectiles/axe/axe.png" id="2_k4u8q"]
+[ext_resource type="AudioStream" uid="uid://bg5vk3a03lmnp" path="res://assets/sounds/Misc/Bowfire.wav" id="3_4l64f"]
+[ext_resource type="AudioStream" uid="uid://ce8ik218yqtxb" path="res://assets/sounds/Misc/Bowhit.wav" id="4_c4hlr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m45r8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qlx1"]
+atlas = ExtResource("2_k4u8q")
+region = Rect2(0, 0, 30, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6jnh"]
+atlas = ExtResource("2_k4u8q")
+region = Rect2(30, 0, 30, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wls0q"]
+atlas = ExtResource("2_k4u8q")
+region = Rect2(60, 0, 30, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ghw68"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qlx1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6jnh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wls0q")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Axe" type="Area2D"]
 collision_layer = 8
-collision_mask = 6
+collision_mask = 22
 script = ExtResource("1_y6oyt")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_m45r8")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ghw68")
+
+[node name="FireSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_4l64f")
+autoplay = true
+
+[node name="HitSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_c4hlr")

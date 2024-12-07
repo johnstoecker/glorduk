@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcnljdku4lhjw"]
+[gd_scene load_steps=6 format=3 uid="uid://dcnljdku4lhjw"]
 
 [ext_resource type="Script" path="res://ui/player_status.gd" id="1_2ln66"]
 [ext_resource type="Texture2D" uid="uid://50ya6aijpt4d" path="res://ui/icons.png" id="1_urej2"]
 [ext_resource type="PackedScene" uid="uid://gwawuslf3jr8" path="res://ui/health.tscn" id="2_i31p5"]
+[ext_resource type="PackedScene" uid="uid://ds51vg7aq63gu" path="res://ui/exp/Exp.tscn" id="4_mgcg4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wp0ye"]
 atlas = ExtResource("1_urej2")
@@ -46,4 +47,9 @@ layout_mode = 2
 offset_top = 110.0
 offset_right = 0.0
 offset_bottom = 110.0
+scale = Vector2(0.125, 0.125)
+
+[node name="Exp" parent="." instance=ExtResource("4_mgcg4")]
+offset_top = 118.0
+offset_bottom = 118.0
 scale = Vector2(0.125, 0.125)

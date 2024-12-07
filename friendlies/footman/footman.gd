@@ -59,6 +59,7 @@ func old_repath_to_player():
 		else:
 			linear_velocity = (Globals.HUMAN_HOME - position).normalized() * speed
 
+
 func attack(node):
 	_animated_sprite.play("e_attack")
 	node.take_damage(0.1)
@@ -71,7 +72,6 @@ func die():
 	z_index = 4
 	linear_velocity = Vector2i(0,0)
 	set_process(false)
-	print("i died!")
 	current_state = Globals.States.DEAD
 	await get_tree().create_timer(8).timeout
 	queue_free()

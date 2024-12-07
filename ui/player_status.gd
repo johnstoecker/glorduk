@@ -2,6 +2,7 @@ extends Control
 class_name PlayerStatus
 
 @onready var _health: Health = $Health
+@onready var _exp: Exp = $Exp
 @onready var _name: RichTextLabel = $Name
 
 @export var player_id = -1
@@ -13,6 +14,8 @@ func init(player_num: int):
 func _ready() -> void:
 	_health.target_id = player_id
 	_name.text = "Player %d" % player_id
+	_exp.target_id = player_id
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
