@@ -9,12 +9,16 @@ var eye_scene = preload("res://entities/projectiles/eye/eye.tscn")
 var player_scene = preload("res://entities/player/player.tscn")
 var footman_scene = preload("res://friendlies/footman/footman.tscn")
 var base_scene = preload("res://entities/base/base.tscn")
+var pause_scene = preload("res://menus/pause.tscn")
 
 @onready var camera: Camera2D = $PlayerManager/Camera2D
 @onready var hud: HUD = $HUD
 
+var pause_menu: CanvasLayer = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	PlayerManager.reset()
 	PlayerManager.player_joined.connect(spawn_player)
 	PlayerManager.player_left.connect(delete_player)
 
@@ -39,6 +43,27 @@ func _process(delta: float) -> void:
 	PlayerManager.handle_join_input()
 
 	camera_follow()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if pause_menu != null:
+		return
+	var should_pause := false
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
+		should_pause = true
+	elif event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_START:
+		if PlayerManager.is_device_joined(event.device):
+			should_pause = true
+	if should_pause:
+		get_viewport().set_input_as_handled()
+		_open_pause_menu()
+
+
+func _open_pause_menu() -> void:
+	pause_menu = pause_scene.instantiate()
+	pause_menu.tree_exited.connect(func(): pause_menu = null)
+	add_child(pause_menu)
+	get_tree().paused = true
 
 
 func _on_put_eye(loc: Vector2):

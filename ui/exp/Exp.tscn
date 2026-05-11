@@ -21,6 +21,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 504.0
@@ -30,6 +31,7 @@ grow_vertical = 2
 color = Color(0.312466, 0.312466, 0.312466, 1)
 
 [node name="Foreground" type="ColorRect" parent="."]
+layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 504.0
@@ -56,6 +58,7 @@ text = "STR
 
 [node name="Value" type="RichTextLabel" parent="STR_CONTROL"]
 clip_contents = false
+layout_mode = 0
 offset_left = 195.0
 offset_top = -6.0
 offset_right = 383.0
@@ -84,6 +87,7 @@ text = "SPD
 
 [node name="Value" type="RichTextLabel" parent="SPD_CONTROL"]
 clip_contents = false
+layout_mode = 0
 offset_left = 195.0
 offset_top = -4.0
 offset_right = 408.0

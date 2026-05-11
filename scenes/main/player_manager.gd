@@ -30,6 +30,9 @@ func leave(player: int):
 		player_data.erase(player)
 		player_left.emit(player)
 
+func reset():
+	player_data.clear()
+
 func get_player_count():
 	return player_data.size()
 
