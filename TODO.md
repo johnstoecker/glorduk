@@ -4,7 +4,7 @@
 - [ ] enemy pathing should consider multiple players - right now they always target player 0
 - [ ] player injured sound
 - [ ] enemies with >1 hp
-- [ ] enemy death sounds
+- [x] enemy death sounds
 - [ ] destroyable spawner buildings
 - [ ] fix bug: trolls spawn as "bloody dead body" sprite
 - [ ] rotate enemies as they change movement direction (8-dir like player)

@@ -67,6 +67,7 @@ func attack(node):
 
 func die():
 	_animated_sprite.play("die")
+	Events.human_died.emit()
 	# interestingly, setting disabled true doesnt work, have to do deferred
 	$CollisionShape2D.set_deferred("disabled", true)
 	z_index = 4

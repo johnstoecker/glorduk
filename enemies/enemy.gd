@@ -111,7 +111,6 @@ func choose_target():
 			nearest_target = check_target
 
 	return nearest_target
-
 func attack(node):
 	#assert(false, "Enemy.attack() is a virtual method. It must be implemented in the Enemy subclass.")
 	_animated_sprite.play("e_attack")
@@ -127,6 +126,7 @@ func get_state() -> Globals.States:
 
 func die():
 	_animated_sprite.play("die")
+	Events.orc_died.emit()
 	# interestingly, setting disabled true doesnt work, have to do deferred
 	$CollisionShape2D.set_deferred("disabled", true)
 	z_index = 4

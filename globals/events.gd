@@ -10,4 +10,7 @@ signal update_skill(value: int, player_id: int, skill: String)
 signal arrow_fired
 signal arrow_hit
 
+signal orc_died
+signal human_died
+
 signal put_eye
